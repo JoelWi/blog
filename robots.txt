@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 Allow: /
-Sitemap: https://joelwi.github.io/sitemap.xml
+Sitemap: https://joelwi.dev/sitemap.xml
