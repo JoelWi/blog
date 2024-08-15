@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             Java 21 Virtual Threads: A Brief Introduction
+            
+        </title>
+
+        
+            <meta property="og:title" content="Java 21 Virtual Threads: A Brief Introduction" />
+        
+    
+
+    
+        
+            <meta property="og:description" content="In the recent years, reactive Java has been growing in popularity, but writing reactive code is tricky to get used to due to the asynchronous (non-blocking) style it requires. Furthermore, asynchronous Java comes with some common pains.." />
+        
+    
+
+    
+        
+            <meta name="description" content="In the recent years, reactive Java has been growing in popularity, but writing reactive code is tricky to get used to due to the asynchronous (non-blocking) style it requires. Furthermore, asynchronous Java comes with some common pains.." />
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=XXXX-XXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'XXXX-XXXXX');
+        </script>
+    
+
+    
+    
+        <script src=https://joelwi.github.io/js/feather.min.js></script>
+    
+
+
+    
+        <link href=https://joelwi.github.io/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://joelwi.github.io/css/main.css />
+
+    
+
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=https:&#x2F;&#x2F;joelwi.github.io></a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>Home</a>
+        
+            <a href=&#x2F;posts>Posts</a>
+        
+            <a href=&#x2F;tags>Tags</a>
+        
+
+        
+
+        
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">Java 21 Virtual Threads: A Brief Introduction</h1>
+            <div class="meta">
+                
+                on  2024-08-14
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <p>In recent years, reactive Java has been growing in popularity, but writing reactive code is tricky to get used to due to the asynchronous (non-blocking) style it requires. Furthermore, asynchronous Java comes with some common pains such as:</p>
+<ul>
+<li>hard to comprehend stacktraces/thread dumps</li>
+<li>unfriendly debugging</li>
+<li>messy chaining of operations</li>
+</ul>
+<p><img src="https://joelwi.github.io/posts/virtual-threads/async.png" alt="Lots of nested callbacks inside of each other to showcase async messiness" /></p>
+<p><em>async code can look like this and it's not pleasant</em></p>
+</br>
+<p>Virtual threads are a new addition with Java 21 that <strong>may</strong> provide some benefits for you. They are a thread which runs on top of an platform thread (and yes, with their own stack!). A virtual thread will unmount itself from the platform thread when blocking operations occur, thus giving another virtual thread the chance to do some work.</p>
+<p>Note: A platform thread is a JVM thin wrapper around an OS thread, and requires about 1~2MB of memory depending on the platform (in contrast to **KB for vthreads) for the default initial stack size.</p>
+<p>The primary goal of virtual threads is to allow you to write blocking, imperative style code and gain the benefits non-blocking style code. They won't provide a benefit if your codebase is modelled towards the asynchronous style.</p>
+<p>Two issues that are present with virtual threads is that they will pin themselves to the platform thread if:</p>
+<ul>
+<li>entered a synchronised block</li>
+<li>FFI</li>
+</ul>
+<p>It's advised that it's best to replace your synchronised blocks with ReentrantLock (you should measure and monitor for your specific case(s)). If library code contains it, then you will need to wait until further work has fixed this.</p>
+<p>Keep in mind: this is most important for blocks where a lot of the work doesn't require synchronisation.</p>
+<p><img src="https://joelwi.github.io/posts/virtual-threads/synchronised.png" alt="Sample code where synchronised is used on a method" /></p>
+<p><img src="https://joelwi.github.io/posts/virtual-threads/reentrantlock.png" alt="Refactored above to use reentrantlock instead" /></p>
+<p>This is a gross oversimplication however, Netflix wrote a blog regarding an issue they faced: (<a href="https://netflixtechblog.com/java-21-virtual-threads-dude-wheres-my-lock-3052540e231d">Java 21 Virtual Threads - Dude, Where’s My Lock?</a></p>
+<p>The issue is really about how virtual threads interact with monitors right now. There is an open JEP draft to improve on this: (<a href="https://openjdk.org/jeps/8337395">JEP draft: Adapt Object Monitors for Virtual Threads</a>)</p>
+</br>
+<p>As mentioned before, the goal of virtual threads is not about making things faster, but allowing scalability with blocking-style code. If your work is CPU-bound, then you would continue to use platform threads.</p>
+<p>Since a virtual thread is still a thread, the semantics between using a platform thread or a virtual thread means there is no mental overhead, compared to mixing lots of async code.</p>
+<p><img src="https://joelwi.github.io/posts/virtual-threads/bytecode.png" alt="Bytecode of a pthread vs vthread" /></p>
+<p>The bytecode above highlights this as well. (<a href="https://en.wikipedia.org/wiki/List_of_Java_bytecode_instructions">Bytecode Cheatsheet</a>)</p>
+<p>The JVM has a scheduler for managing the virtual threads so you don't need to think about how they work compared to platform threads.</p>
+</br>
+<p>Imagine you have a CPU that has 4 physical cores (which makes up 8 virtual cores in total), this means you have 8 platform threads that can take advantage of the CPU. Virtual threads however, can be (almost) limitless due to their lighterweight cost since they are internal to the JVM with no outbound calls to the OS.</p>
+<p>Another key detail here is that to benefit from the overhead of creating a virtual thread, you will need to have your blocking operations long enough that you gain throughout compared to N platform threads, and this is why you must measure to see if gains are possible.</p>
+<p>Note: to calculate your throughput, you can use the following:
+(1000ms / latency) * concurrency = throughput</p>
+<p>A trivial example:</p>
+<p>Here are 2048 tasks that take 2 seconds through virtual threads and platform threads:</p>
+<h1 id="running-2048-virtual-threads-1-thread-per-task">Running 2048 virtual threads (1 thread per task)</h1>
+<p><img src="https://joelwi.github.io/posts/virtual-threads/vthread.png" alt="alt text" /></p>
+<h1 id="running-20-os-threads-on-20-virtual-cores-executing-2048-tasks">Running 20 OS threads (on 20 virtual cores) executing 2048 tasks</h1>
+<p><img src="https://joelwi.github.io/posts/virtual-threads/osthread.png" alt="alt text" /></p>
+<p>Virtual thread result: 2024ms</p>
+<p>Platform threads result: 206030ms (3m26s)</p>
+<p>Based on what we know from above, this makes sense. When a virtual thread is blocked, a new virtual thread will come in. For 2048 threads to result in 2024ms shows how cheap the construction/cleanup of virtual threads are!</p>
+<p>So why did the platform threads result in such a drastic result? Based on the formula above:</p>
+<p>(1000ms / 2000) * 20 = 10rps</p>
+<p>So for 2048 tasks, 2048 / 10 = 3m24s</p>
+</br>
+<p>Sounds interesting enough? Take a look at the resources below!</p>
+<h1 id="other-links">Other Links</h1>
+<p><a href="https://openjdk.org/jeps/444">Virtual threads JEP</a></p>
+<p><a href="https://github.com/openjdk/jdk/pull/8166">Virtual threads PR</a></p>
+<p><a href="https://www.youtube.com/watch?v=KBW4LbCoo6c">[Presentation] Java's Virtual Threads - Next Steps</a></p>
+<p><a href="https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html#GUID-8AEDDBE6-F783-4D77-8786-AC5A79F517C0">"Virtual Threads: An Adoption Guide" by Oracle</a></p>
+<p><a href="https://mail.openjdk.org/pipermail/loom-dev/">Project Loom mailing list</a></p>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;ptr_to_joel title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>

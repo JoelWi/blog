@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://joelwi.dev/</loc>
+        <loc>https://joelwi.github.io/</loc>
     </url>
     <url>
-        <loc>https://joelwi.dev/page/1/</loc>
+        <loc>https://joelwi.github.io/page/1/</loc>
     </url>
     <url>
-        <loc>https://joelwi.dev/posts/</loc>
+        <loc>https://joelwi.github.io/posts/</loc>
     </url>
     <url>
-        <loc>https://joelwi.dev/posts/hello-world/</loc>
-        <lastmod>2024-06-21</lastmod>
+        <loc>https://joelwi.github.io/posts/virtual-threads/</loc>
+        <lastmod>2024-08-14</lastmod>
     </url>
     <url>
-        <loc>https://joelwi.dev/posts/test/</loc>
-        <lastmod>2024-07-17</lastmod>
-    </url>
-    <url>
-        <loc>https://joelwi.dev/tags/</loc>
-    </url>
-    <url>
-        <loc>https://joelwi.dev/tags/java/</loc>
+        <loc>https://joelwi.github.io/tags/</loc>
     </url>
 </urlset>
