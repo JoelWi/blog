@@ -140,7 +140,7 @@
 <p>The bytecode above highlights this as well. (<a href="https://en.wikipedia.org/wiki/List_of_Java_bytecode_instructions">Bytecode Cheatsheet</a>)</p>
 <p>The JVM has a scheduler for managing the virtual threads so you don't need to think about how they work compared to platform threads.</p>
 </br>
-<p>To set the scene a little if you are still a little puzzled:</p>
+<p>To set the scene if you are still a little puzzled:</p>
 <p>Imagine you have a CPU that has 4 physical cores (which makes up 8 virtual cores in total), this means you have 8 platform threads that can take advantage of the CPU. Virtual threads however, can be (almost) limitless due to their lighterweight cost, since they are internal to the JVM with no outbound calls to the OS.</p>
 <p>Another key detail here is that to benefit from the overhead of creating a virtual thread, you will need to have your blocking operations long enough that you gain throughout compared to N platform threads, and this is why you must measure to see if gains are possible.</p>
 <p>Note: to calculate your throughput, you can use the following:
