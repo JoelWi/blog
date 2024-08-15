@@ -131,7 +131,7 @@
 <p>Keep in mind: this is most important for blocks where a lot of the work doesn't require synchronisation.</p>
 <p><img src="https://ptrtojoel.dev/posts/virtual-threads/synchronised.png" alt="Sample code where synchronised is used on a method" /></p>
 <p><img src="https://ptrtojoel.dev/posts/virtual-threads/reentrantlock.png" alt="Refactored above to use reentrantlock instead" /></p>
-<p>This is a gross oversimplification however, Netflix wrote a blog regarding an issue they faced: (<a href="https://netflixtechblog.com/java-21-virtual-threads-dude-wheres-my-lock-3052540e231d">Java 21 Virtual Threads - Dude, Where’s My Lock?</a></p>
+<p>This is a gross oversimplification however, Netflix wrote a blog regarding an issue they faced: (<a href="https://netflixtechblog.com/java-21-virtual-threads-dude-wheres-my-lock-3052540e231d">Java 21 Virtual Threads - Dude, Where’s My Lock?</a>)</p>
 <p>The issue is really about how virtual threads interact with monitors right now. There is an open JEP draft to improve on this: (<a href="https://openjdk.org/jeps/8337395">JEP draft: Adapt Object Monitors for Virtual Threads</a>)</p>
 </br>
 <p>The goal of virtual threads is not about making things faster, but allowing scalability with blocking-style code. If your work is CPU-bound, then you would continue to use platform threads.</p>
