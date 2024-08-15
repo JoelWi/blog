@@ -49,15 +49,15 @@
 
     
     
-        <script src=https://joelwi.github.io/js/feather.min.js></script>
+        <script src=https://ptrtojoel.dev/js/feather.min.js></script>
     
 
 
     
-        <link href=https://joelwi.github.io/css/fonts.css rel="stylesheet" />
+        <link href=https://ptrtojoel.dev/css/fonts.css rel="stylesheet" />
     
 
-    <link rel="stylesheet" type="text/css" media="screen" href=https://joelwi.github.io/css/main.css />
+    <link rel="stylesheet" type="text/css" media="screen" href=https://ptrtojoel.dev/css/main.css />
 
     
 
@@ -74,7 +74,7 @@
     <div class="content">
         <header>
     <div class="main" id="main_title">
-        <a href=https:&#x2F;&#x2F;joelwi.github.io></a>
+        <a href=https:&#x2F;&#x2F;ptrtojoel.dev></a>
     </div>
 
     <nav>
@@ -116,7 +116,7 @@
 <li>unfriendly debugging</li>
 <li>messy chaining of operations</li>
 </ul>
-<p><img src="https://joelwi.github.io/posts/virtual-threads/async.png" alt="Lots of nested callbacks inside of each other to showcase async messiness" /></p>
+<p><img src="https://ptrtojoel.dev/posts/virtual-threads/async.png" alt="Lots of nested callbacks inside of each other to showcase async messiness" /></p>
 <p><em>async code can look like this and it's not pleasant</em></p>
 </br>
 <p>Virtual threads are a new addition with Java 21 that <strong>may</strong> provide some benefits for you. They are a thread which runs on top of an platform thread (and yes, with their own stack!). A virtual thread will unmount itself from the platform thread when blocking operations occur, thus giving another virtual thread the chance to do some work.</p>
@@ -129,14 +129,14 @@
 </ul>
 <p>It's advised that it's best to replace your synchronised blocks with ReentrantLock (you should measure and monitor for your specific case(s)). If library code contains it, then you will need to wait until further work has fixed this.</p>
 <p>Keep in mind: this is most important for blocks where a lot of the work doesn't require synchronisation.</p>
-<p><img src="https://joelwi.github.io/posts/virtual-threads/synchronised.png" alt="Sample code where synchronised is used on a method" /></p>
-<p><img src="https://joelwi.github.io/posts/virtual-threads/reentrantlock.png" alt="Refactored above to use reentrantlock instead" /></p>
+<p><img src="https://ptrtojoel.dev/posts/virtual-threads/synchronised.png" alt="Sample code where synchronised is used on a method" /></p>
+<p><img src="https://ptrtojoel.dev/posts/virtual-threads/reentrantlock.png" alt="Refactored above to use reentrantlock instead" /></p>
 <p>This is a gross oversimplication however, Netflix wrote a blog regarding an issue they faced: (<a href="https://netflixtechblog.com/java-21-virtual-threads-dude-wheres-my-lock-3052540e231d">Java 21 Virtual Threads - Dude, Where’s My Lock?</a></p>
 <p>The issue is really about how virtual threads interact with monitors right now. There is an open JEP draft to improve on this: (<a href="https://openjdk.org/jeps/8337395">JEP draft: Adapt Object Monitors for Virtual Threads</a>)</p>
 </br>
 <p>As mentioned before, the goal of virtual threads is not about making things faster, but allowing scalability with blocking-style code. If your work is CPU-bound, then you would continue to use platform threads.</p>
 <p>Since a virtual thread is still a thread, the semantics between using a platform thread or a virtual thread means there is no mental overhead, compared to mixing lots of async code.</p>
-<p><img src="https://joelwi.github.io/posts/virtual-threads/bytecode.png" alt="Bytecode of a pthread vs vthread" /></p>
+<p><img src="https://ptrtojoel.dev/posts/virtual-threads/bytecode.png" alt="Bytecode of a pthread vs vthread" /></p>
 <p>The bytecode above highlights this as well. (<a href="https://en.wikipedia.org/wiki/List_of_Java_bytecode_instructions">Bytecode Cheatsheet</a>)</p>
 <p>The JVM has a scheduler for managing the virtual threads so you don't need to think about how they work compared to platform threads.</p>
 </br>
@@ -147,9 +147,9 @@
 <p>A trivial example:</p>
 <p>Here are 2048 tasks that take 2 seconds through virtual threads and platform threads:</p>
 <h1 id="running-2048-virtual-threads-1-thread-per-task">Running 2048 virtual threads (1 thread per task)</h1>
-<p><img src="https://joelwi.github.io/posts/virtual-threads/vthread.png" alt="alt text" /></p>
+<p><img src="https://ptrtojoel.dev/posts/virtual-threads/vthread.png" alt="alt text" /></p>
 <h1 id="running-20-os-threads-on-20-virtual-cores-executing-2048-tasks">Running 20 OS threads (on 20 virtual cores) executing 2048 tasks</h1>
-<p><img src="https://joelwi.github.io/posts/virtual-threads/osthread.png" alt="alt text" /></p>
+<p><img src="https://ptrtojoel.dev/posts/virtual-threads/osthread.png" alt="alt text" /></p>
 <p>Virtual thread result: 2024ms</p>
 <p>Platform threads result: 206030ms (3m26s)</p>
 <p>Based on what we know from above, this makes sense. When a virtual thread is blocked, a new virtual thread will come in. For 2048 threads to result in 2024ms shows how cheap the construction/cleanup of virtual threads are!</p>
