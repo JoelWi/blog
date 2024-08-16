@@ -152,7 +152,7 @@
 <h1 id="running-20-os-threads-on-20-virtual-cores-executing-2048-tasks">Running 20 OS threads (on 20 virtual cores) executing 2048 tasks</h1>
 <p><img src="https://ptrtojoel.dev/posts/virtual-threads/osthread.png" alt="alt text" /></p>
 <p>Virtual thread result: 2024ms</p>
-<p>Platform threads result: 206030ms (3m26s)</p>
+<p>Platform threads result: 206,030ms (3m26s)</p>
 <p>Based on what we know from above, this makes sense. When a virtual thread is blocked, a new virtual thread will come in. For 2048 threads to result in 2024ms shows how cheap the construction/cleanup of virtual threads are!</p>
 <p>So why did the platform threads result in such a drastic result? Based on the formula above:</p>
 <p>(1000ms / 2000) * 20 = 10rps</p>
