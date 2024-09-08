@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             Design Patterns Are Temporary, Language Features Are Forever
+            
+        </title>
+
+        
+            <meta property="og:title" content="Design Patterns Are Temporary, Language Features Are Forever" />
+        
+    
+
+    
+        
+            <meta property="og:description" content="Design patterns are these cool things that make you go &#x27;hell yeah&#x27; because they make a certain problem easier to deal with. Whether it&#x27;s applicable to all languages, or due to a language constraint, they&#x27;re pretty nice. Of course, some people go crazy with them rather than doing the simple thing that works. Other times, you&#x27;ll naturally do a design pattern without even knowing about it..." />
+        
+    
+
+    
+        
+            <meta name="description" content="Design patterns are these cool things that make you go &#x27;hell yeah&#x27; because they make a certain problem easier to deal with. Whether it&#x27;s applicable to all languages, or due to a language constraint, they&#x27;re pretty nice. Of course, some people go crazy with them rather than doing the simple thing that works. Other times, you&#x27;ll naturally do a design pattern without even knowing about it..." />
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=XXXX-XXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'XXXX-XXXXX');
+        </script>
+    
+
+    
+    
+        <script src=https://ptrtojoel.dev/js/feather.min.js></script>
+    
+
+
+    
+        <link href=https://ptrtojoel.dev/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://ptrtojoel.dev/css/main.css />
+
+    
+
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=https:&#x2F;&#x2F;ptrtojoel.dev></a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>Home</a>
+        
+            <a href=&#x2F;posts>Posts</a>
+        
+            <a href=&#x2F;tags>Tags</a>
+        
+
+        
+
+        
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">Design Patterns Are Temporary, Language Features Are Forever</h1>
+            <div class="meta">
+                
+                on  2024-09-08
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <p>Design patterns are these cool things that make you go 'hell yeah' because they make a certain problem easier to deal with. Whether it's applicable to all languages, or due to a language constraint, they're pretty nice. Of course, some people go crazy with them rather than doing the simple thing that works. Other times, you'll naturally do a design pattern without even knowing about it.</p>
+<p>Every once in a while, I like to go through design patterns that are applicable to Java as a thought experiment to see:</p>
+<ul>
+<li>Have I seen this in a codebase before?</li>
+<li>Does this look like something it would've helped me with before?</li>
+<li>Is this design pattern a solution to a problem which doesn't exist?</li>
+</ul>
+<p>and so on.</p>
+<p>A few times I have come across patterns such as 'visitor' and never truly grasped what it was solving, or why I would use it. Young Joel was unsure, probably due to poor explanations, which I think, is still a problem when it comes to concepts. In Jiujitsu, it's extremely evident when a concept or a technique is practical and not bullshido (if you go to a gym, which competes at least in my, anecdotal experience). But for the visitor pattern, it has always been:</p>
+<p>&gt;"here's how the pattern works"</p>
+<p>&gt;just randomly logs stuff to stdout</p>
+<p>Not exactly helpful for junior/mid level devs with an unrealistic use case.</p>
+</br>
+<p>When my son was born, I had decided to learn Rust since I was sleepless most of the time and I wanted to keep myself sharp during parental leave.</p>
+<p>Can you imagine how mind blown I was when I saw this??:</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let</span><span> number = </span><span style="color:#d08770;">13</span><span>;
+</span><span>
+</span><span>   </span><span style="color:#b48ead;">match</span><span> number {
+</span><span>       </span><span style="color:#d08770;">1 </span><span>=&gt; println!(&quot;</span><span style="color:#a3be8c;">One!</span><span>&quot;),
+</span><span>       </span><span style="color:#d08770;">2 </span><span>| </span><span style="color:#d08770;">3 </span><span>| </span><span style="color:#d08770;">5 </span><span>| </span><span style="color:#d08770;">7 </span><span>| </span><span style="color:#d08770;">11 </span><span>=&gt; println!(&quot;</span><span style="color:#a3be8c;">This is a prime</span><span>&quot;),
+</span><span>       </span><span style="color:#d08770;">13</span><span>..=</span><span style="color:#d08770;">19 </span><span>=&gt; println!(&quot;</span><span style="color:#a3be8c;">A teen</span><span>&quot;),
+</span><span>       _ =&gt; println!(&quot;</span><span style="color:#a3be8c;">catch leftovers</span><span>&quot;)
+</span><span>   }
+</span></code></pre>
+<p>And that's how Young Joel discovered pattern matching.</p>
+</br>
+<p>Fast forward time a little, I went back to the visitor pattern out of curiosity again to see if I could try to understand it once more. Now knowing about pattern matching, this is how I came to realise that the visitor pattern was pattern matching in an OO way. Of course, it's not 1:1 (I think), but it gives a familiar feel. I wouldn't try to pretend I understand completely the key details/downfalls of visitors, but now I had a better idea on how to use them.</p>
+<p>At work I write a mix of Java, JavaScript, and Rust. Majority of my time is Java, but I'm very pushy on not staying on a particular version, because that's a major L and one of the worst characteristics of Java culture today in enterprise land.</p>
+<p>Java 21 saw a lot of fantastic features, one of them being: <a href="https://openjdk.org/jeps/441">Pattern Matching for switch</a>.</p>
+<p>With pattern matching in switches and sealed types, the visitor pattern to me looks like a thing of the past (which is good!). I think if a language can improve in such a way, then the language itself becomes more enjoyable to use. For example, you can do this!:</p>
+<p><img src="https://ptrtojoel.dev/posts/design-patterns-are-temporary/java-21-pattern-match.png" alt="alt text" /></p>
+<p>Here is the Rust version:</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">enum </span><span>WebEvent {
+</span><span>    PageLoad,
+</span><span>    PageUnload,
+</span><span>    KeyPress(</span><span style="color:#b48ead;">char</span><span>),
+</span><span>    Paste(String),
+</span><span>    Click { x: </span><span style="color:#b48ead;">i64</span><span>, y: </span><span style="color:#b48ead;">i64 </span><span>},
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">inspect</span><span>(</span><span style="color:#bf616a;">event</span><span>: WebEvent) {
+</span><span>    </span><span style="color:#b48ead;">match</span><span> event {
+</span><span>        WebEvent::PageLoad =&gt; println!(&quot;</span><span style="color:#a3be8c;">page loaded</span><span>&quot;),
+</span><span>        WebEvent::PageUnload =&gt; println!(&quot;</span><span style="color:#a3be8c;">page unloaded</span><span>&quot;),
+</span><span>        WebEvent::KeyPress(c) =&gt; println!(&quot;</span><span style="color:#a3be8c;">pressed &#39;</span><span style="color:#d08770;">{}</span><span style="color:#a3be8c;">&#39;.</span><span>&quot;, c),
+</span><span>        WebEvent::Paste(s) =&gt; println!(&quot;</span><span style="color:#a3be8c;">pasted </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#d08770;">{}</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">.</span><span>&quot;, s),
+</span><span>        WebEvent::Click { x, y } =&gt; {
+</span><span>            println!(&quot;</span><span style="color:#a3be8c;">clicked at x=</span><span style="color:#d08770;">{}</span><span style="color:#a3be8c;">, y=</span><span style="color:#d08770;">{}</span><span style="color:#a3be8c;">.</span><span>&quot;, x, y);
+</span><span>        },
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>Sealed types, records, switch expressions, switch pattern matching.. the list goes on. I really love modern Java, and the feature delivery is quality.</p>
+</br>
+<p>Coming back to the visitor pattern, here is some sample code I wrote during my son's nap times to get a feel on the pattern, and that I hope makes it clearer how modern Java features make it not required to write anymore.</p>
+<ul>
+<li>We model a filesystem where there is a Node which is either a BlobNode or a TreeNode.</li>
+<li>There are two use cases: adding or deleting a BlobNode (the visitor pattern really shines because of how you can implement this)</li>
+</ul>
+<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#b48ead;">package </span><span>visitor;
+</span><span>
+</span><span style="color:#b48ead;">import </span><span>java.util.</span><span style="color:#ebcb8b;">ArrayList</span><span>;
+</span><span style="color:#b48ead;">import </span><span>java.util.</span><span style="color:#ebcb8b;">List</span><span>;
+</span><span>
+</span><span style="color:#b48ead;">abstract class </span><span style="color:#ebcb8b;">Node </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public final </span><span style="color:#ebcb8b;">String </span><span style="color:#eff1f5;">name;
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public </span><span style="color:#8fa1b3;">Node</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">String </span><span style="color:#bf616a;">name</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">        </span><span style="color:#bf616a;">this</span><span style="color:#eff1f5;">.name </span><span>=</span><span style="color:#eff1f5;"> name;
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">abstract public void </span><span style="color:#8fa1b3;">accept</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">NodeVisitor </span><span style="color:#bf616a;">visitor</span><span style="color:#eff1f5;">);
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">}
+</span><span>
+</span><span style="color:#b48ead;">class </span><span style="color:#ebcb8b;">BlobNode </span><span style="color:#b48ead;">extends </span><span style="color:#a3be8c;">Node </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public </span><span style="color:#8fa1b3;">BlobNode</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">String </span><span style="color:#bf616a;">name</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">        </span><span style="color:#bf616a;">super</span><span style="color:#eff1f5;">(name);
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    @</span><span style="color:#bf616a;">Override
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public void </span><span style="color:#8fa1b3;">accept</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">NodeVisitor </span><span style="color:#bf616a;">visitor</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">        visitor.</span><span style="color:#bf616a;">visit</span><span style="color:#eff1f5;">(</span><span style="color:#bf616a;">this</span><span style="color:#eff1f5;">);
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">}
+</span><span>
+</span><span style="color:#b48ead;">class </span><span style="color:#ebcb8b;">TreeNode </span><span style="color:#b48ead;">extends </span><span style="color:#a3be8c;">Node </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public </span><span style="color:#ebcb8b;">List</span><span style="color:#eff1f5;">&lt;</span><span style="color:#ebcb8b;">Node</span><span style="color:#eff1f5;">&gt; children;
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public </span><span style="color:#8fa1b3;">TreeNode</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">String </span><span style="color:#bf616a;">name</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">List</span><span style="color:#eff1f5;">&lt;</span><span style="color:#ebcb8b;">Node</span><span style="color:#eff1f5;">&gt; </span><span style="color:#bf616a;">children</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">        </span><span style="color:#bf616a;">super</span><span style="color:#eff1f5;">(name);
+</span><span style="color:#eff1f5;">        </span><span style="color:#bf616a;">this</span><span style="color:#eff1f5;">.children </span><span>=</span><span style="color:#eff1f5;"> children;
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    @</span><span style="color:#bf616a;">Override
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public void </span><span style="color:#8fa1b3;">accept</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">NodeVisitor </span><span style="color:#bf616a;">visitor</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">        visitor.</span><span style="color:#bf616a;">visit</span><span style="color:#eff1f5;">(</span><span style="color:#bf616a;">this</span><span style="color:#eff1f5;">);
+</span><span style="color:#eff1f5;">        children.</span><span style="color:#bf616a;">forEach</span><span style="color:#eff1f5;">((</span><span style="color:#bf616a;">c</span><span style="color:#eff1f5;">) </span><span style="color:#b48ead;">-&gt;</span><span style="color:#eff1f5;"> c.</span><span style="color:#bf616a;">accept</span><span style="color:#eff1f5;">(visitor));
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">}
+</span><span>
+</span><span style="color:#b48ead;">interface </span><span style="color:#ebcb8b;">NodeVisitor </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">void </span><span style="color:#8fa1b3;">visit</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">BlobNode </span><span style="color:#bf616a;">node</span><span style="color:#eff1f5;">);
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">void </span><span style="color:#8fa1b3;">visit</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">TreeNode </span><span style="color:#bf616a;">node</span><span style="color:#eff1f5;">);
+</span><span style="color:#eff1f5;">}
+</span><span>
+</span><span style="color:#b48ead;">class </span><span style="color:#ebcb8b;">BlobNodeVisitor </span><span style="color:#b48ead;">implements </span><span style="color:#a3be8c;">NodeVisitor </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    @</span><span style="color:#bf616a;">Override
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public void </span><span style="color:#8fa1b3;">visit</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">BlobNode </span><span style="color:#bf616a;">node</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">        </span><span style="color:#ebcb8b;">System</span><span style="color:#eff1f5;">.out.</span><span style="color:#bf616a;">println</span><span style="color:#eff1f5;">(</span><span>&quot;</span><span style="color:#a3be8c;">BlobNode: </span><span>&quot; +</span><span style="color:#eff1f5;"> node.name);
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    @</span><span style="color:#bf616a;">Override
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public void </span><span style="color:#8fa1b3;">visit</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">TreeNode </span><span style="color:#bf616a;">node</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">}
+</span><span>
+</span><span style="color:#b48ead;">class </span><span style="color:#ebcb8b;">TreeNodeVisitor </span><span style="color:#b48ead;">implements </span><span style="color:#a3be8c;">NodeVisitor </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    @</span><span style="color:#bf616a;">Override
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public void </span><span style="color:#8fa1b3;">visit</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">BlobNode </span><span style="color:#bf616a;">node</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    @</span><span style="color:#bf616a;">Override
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public void </span><span style="color:#8fa1b3;">visit</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">TreeNode </span><span style="color:#bf616a;">node</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">        </span><span style="color:#ebcb8b;">System</span><span style="color:#eff1f5;">.out.</span><span style="color:#bf616a;">println</span><span style="color:#eff1f5;">(</span><span>&quot;</span><span style="color:#a3be8c;">TreeNode: </span><span>&quot; +</span><span style="color:#eff1f5;"> node.name);
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">}
+</span><span>
+</span><span style="color:#b48ead;">class </span><span style="color:#ebcb8b;">NodeAddVisitor </span><span style="color:#b48ead;">implements </span><span style="color:#a3be8c;">NodeVisitor </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">private final </span><span style="color:#ebcb8b;">String </span><span style="color:#eff1f5;">name;
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">private final </span><span style="color:#ebcb8b;">String </span><span style="color:#eff1f5;">directory;
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public </span><span style="color:#8fa1b3;">NodeAddVisitor</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">String </span><span style="color:#bf616a;">directory</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">String </span><span style="color:#bf616a;">filename</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">        </span><span style="color:#bf616a;">this</span><span style="color:#eff1f5;">.name </span><span>=</span><span style="color:#eff1f5;"> filename;
+</span><span style="color:#eff1f5;">        </span><span style="color:#bf616a;">this</span><span style="color:#eff1f5;">.directory </span><span>=</span><span style="color:#eff1f5;"> directory;
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    @</span><span style="color:#bf616a;">Override
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public void </span><span style="color:#8fa1b3;">visit</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">BlobNode </span><span style="color:#bf616a;">node</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    @</span><span style="color:#bf616a;">Override
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public void </span><span style="color:#8fa1b3;">visit</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">TreeNode </span><span style="color:#bf616a;">node</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">        </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(node.name.</span><span style="color:#bf616a;">equals</span><span style="color:#eff1f5;">(directory)) {
+</span><span style="color:#eff1f5;">            </span><span style="color:#ebcb8b;">System</span><span style="color:#eff1f5;">.out.</span><span style="color:#bf616a;">println</span><span style="color:#eff1f5;">(</span><span>&quot;</span><span style="color:#96b5b4;">\n</span><span style="color:#a3be8c;">Adding new file to &#39;</span><span>&quot; +</span><span style="color:#eff1f5;"> directory </span><span>+ &quot;</span><span style="color:#a3be8c;">&#39;: </span><span>&quot; +</span><span style="color:#eff1f5;"> name);
+</span><span style="color:#eff1f5;">            node.children.</span><span style="color:#bf616a;">add</span><span style="color:#eff1f5;">(</span><span style="color:#b48ead;">new </span><span style="color:#ebcb8b;">BlobNode</span><span style="color:#eff1f5;">(name));
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">        }
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">}
+</span><span>
+</span><span style="color:#b48ead;">class </span><span style="color:#ebcb8b;">NodeDeleteVisitor </span><span style="color:#b48ead;">implements </span><span style="color:#a3be8c;">NodeVisitor </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">private final </span><span style="color:#ebcb8b;">String </span><span style="color:#eff1f5;">name;
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public </span><span style="color:#8fa1b3;">NodeDeleteVisitor</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">String </span><span style="color:#bf616a;">filename</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">        </span><span style="color:#bf616a;">this</span><span style="color:#eff1f5;">.name </span><span>=</span><span style="color:#eff1f5;"> filename;
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    @</span><span style="color:#bf616a;">Override
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public void </span><span style="color:#8fa1b3;">visit</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">BlobNode </span><span style="color:#bf616a;">node</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    @</span><span style="color:#bf616a;">Override
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public void </span><span style="color:#8fa1b3;">visit</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">TreeNode </span><span style="color:#bf616a;">node</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">        </span><span style="color:#65737e;">// NOOOOOOOOOOOOOOOOO TAKE YOUR FP OUT OF MY OOP
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">        </span><span style="color:#65737e;">// REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+</span><span style="color:#eff1f5;">        node.children </span><span>=</span><span style="color:#eff1f5;"> node.children.</span><span style="color:#bf616a;">stream</span><span style="color:#eff1f5;">()
+</span><span style="color:#eff1f5;">                .</span><span style="color:#bf616a;">filter</span><span style="color:#eff1f5;">(</span><span style="color:#bf616a;">n </span><span style="color:#b48ead;">-&gt; </span><span>!</span><span style="color:#eff1f5;">n.name.</span><span style="color:#bf616a;">equals</span><span style="color:#eff1f5;">(name))
+</span><span style="color:#eff1f5;">                .</span><span style="color:#bf616a;">toList</span><span style="color:#eff1f5;">();
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">}
+</span></code></pre>
+<p>Here's it in action:</p>
+<p><img src="https://ptrtojoel.dev/posts/design-patterns-are-temporary/chad-warden-visitor.png" alt="alt text" /></p>
+<p>Honestly it's pretty cool you can achieve this, but still, for me:</p>
+<ul>
+<li>Lots of code indirection (more use cases or concrete implementations might be harder to comprehend)</li>
+<li>Double dispatch</li>
+<li>New use case requires more 'visit' implementations (visit kinda sucks as a term as well)</li>
+</ul>
+<p>The only valid point I think is double dispatch, the rest are just opinions.</p>
+<p>Here's the modern Java version:</p>
+<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span>
+</span><span style="color:#b48ead;">package </span><span>visitor;
+</span><span>
+</span><span style="color:#b48ead;">import </span><span>java.util.</span><span style="color:#ebcb8b;">ArrayList</span><span>;
+</span><span style="color:#b48ead;">import </span><span>java.util.</span><span style="color:#ebcb8b;">List</span><span>;
+</span><span style="color:#b48ead;">import </span><span>visitor.</span><span style="color:#ebcb8b;">FileNode</span><span>.</span><span style="color:#ebcb8b;">BlobNode</span><span>;
+</span><span style="color:#b48ead;">import </span><span>visitor.</span><span style="color:#ebcb8b;">FileNode</span><span>.</span><span style="color:#ebcb8b;">TreeNode</span><span>;
+</span><span style="color:#b48ead;">import </span><span>visitor.</span><span style="color:#ebcb8b;">FileNodeAction</span><span>.</span><span style="color:#ebcb8b;">Add</span><span>;
+</span><span style="color:#b48ead;">import </span><span>visitor.</span><span style="color:#ebcb8b;">FileNodeAction</span><span>.</span><span style="color:#ebcb8b;">Delete</span><span>;
+</span><span>
+</span><span>sealed </span><span style="color:#b48ead;">interface </span><span style="color:#ebcb8b;">FileNode </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">    </span><span style="color:#ebcb8b;">String </span><span style="color:#8fa1b3;">name</span><span style="color:#eff1f5;">();
+</span><span style="color:#eff1f5;">    record </span><span style="color:#8fa1b3;">BlobNode</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">String </span><span style="color:#bf616a;">name</span><span style="color:#eff1f5;">) implements </span><span style="color:#ebcb8b;">FileNode </span><span style="color:#eff1f5;">{};
+</span><span style="color:#eff1f5;">    record </span><span style="color:#8fa1b3;">TreeNode</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">String </span><span style="color:#bf616a;">name</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">List</span><span style="color:#eff1f5;">&lt;</span><span style="color:#ebcb8b;">FileNode</span><span style="color:#eff1f5;">&gt; </span><span style="color:#bf616a;">children</span><span style="color:#eff1f5;">) implements </span><span style="color:#ebcb8b;">FileNode </span><span style="color:#eff1f5;">{};
+</span><span style="color:#eff1f5;">}
+</span><span>
+</span><span>sealed </span><span style="color:#b48ead;">interface </span><span style="color:#ebcb8b;">FileNodeAction </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">    </span><span style="color:#ebcb8b;">String </span><span style="color:#8fa1b3;">directory</span><span style="color:#eff1f5;">();
+</span><span style="color:#eff1f5;">    record </span><span style="color:#8fa1b3;">Add</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">FileNode </span><span style="color:#bf616a;">node</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">String </span><span style="color:#bf616a;">directory</span><span style="color:#eff1f5;">) implements </span><span style="color:#ebcb8b;">FileNodeAction </span><span style="color:#eff1f5;">{};
+</span><span style="color:#eff1f5;">    record </span><span style="color:#8fa1b3;">Delete</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">FileNode </span><span style="color:#bf616a;">node</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">String </span><span style="color:#bf616a;">directory</span><span style="color:#eff1f5;">) implements </span><span style="color:#ebcb8b;">FileNodeAction </span><span style="color:#eff1f5;">{};
+</span><span style="color:#eff1f5;">}
+</span><span>
+</span><span style="color:#b48ead;">public class </span><span style="color:#ebcb8b;">NewStuff </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public </span><span style="color:#8fa1b3;">NewStuff</span><span style="color:#eff1f5;">() {};
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">private void </span><span style="color:#8fa1b3;">traverseFileNodes</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">List</span><span style="color:#eff1f5;">&lt;</span><span style="color:#ebcb8b;">FileNode</span><span style="color:#eff1f5;">&gt; </span><span style="color:#bf616a;">nodes</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">        nodes.</span><span style="color:#bf616a;">forEach</span><span style="color:#eff1f5;">(</span><span style="color:#bf616a;">n </span><span style="color:#b48ead;">-&gt; </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">            </span><span style="color:#b48ead;">switch </span><span style="color:#eff1f5;">(n) {
+</span><span style="color:#eff1f5;">                </span><span style="color:#b48ead;">case </span><span style="color:#ebcb8b;">BlobNode </span><span style="color:#bf616a;">bn </span><span style="color:#b48ead;">-&gt; </span><span style="color:#ebcb8b;">System</span><span style="color:#eff1f5;">.out.</span><span style="color:#bf616a;">println</span><span style="color:#eff1f5;">(</span><span>&quot;</span><span style="color:#a3be8c;">BlobNode: </span><span>&quot; +</span><span style="color:#eff1f5;"> bn.</span><span style="color:#bf616a;">name</span><span style="color:#eff1f5;">());
+</span><span style="color:#eff1f5;">                </span><span style="color:#b48ead;">case </span><span style="color:#ebcb8b;">TreeNode </span><span style="color:#bf616a;">tn </span><span style="color:#b48ead;">-&gt; </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">                    </span><span style="color:#ebcb8b;">System</span><span style="color:#eff1f5;">.out.</span><span style="color:#bf616a;">println</span><span style="color:#eff1f5;">(</span><span>&quot;</span><span style="color:#a3be8c;">TreeNode: </span><span>&quot; +</span><span style="color:#eff1f5;"> tn.</span><span style="color:#bf616a;">name</span><span style="color:#eff1f5;">());
+</span><span style="color:#eff1f5;">                    </span><span style="color:#bf616a;">traverseFileNodes</span><span style="color:#eff1f5;">(tn.</span><span style="color:#bf616a;">children</span><span style="color:#eff1f5;">());
+</span><span style="color:#eff1f5;">                }
+</span><span style="color:#eff1f5;">            }
+</span><span style="color:#eff1f5;">        });
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">private void </span><span style="color:#8fa1b3;">modifyFileNodes</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">List</span><span style="color:#eff1f5;">&lt;</span><span style="color:#ebcb8b;">FileNode</span><span style="color:#eff1f5;">&gt; </span><span style="color:#bf616a;">nodes</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">FileNodeAction </span><span style="color:#bf616a;">action</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">        nodes.</span><span style="color:#bf616a;">forEach</span><span style="color:#eff1f5;">(</span><span style="color:#bf616a;">n </span><span style="color:#b48ead;">-&gt; </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">            </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(n </span><span>instanceof </span><span style="color:#ebcb8b;">TreeNode</span><span style="color:#eff1f5;"> tn) {
+</span><span style="color:#eff1f5;">                </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(action.</span><span style="color:#bf616a;">directory</span><span style="color:#eff1f5;">().</span><span style="color:#bf616a;">equals</span><span style="color:#eff1f5;">(tn.</span><span style="color:#bf616a;">name</span><span style="color:#eff1f5;">())) {
+</span><span style="color:#eff1f5;">                    </span><span style="color:#b48ead;">switch </span><span style="color:#eff1f5;">(action) {
+</span><span style="color:#eff1f5;">                        </span><span style="color:#b48ead;">case </span><span style="color:#ebcb8b;">FileNodeAction</span><span style="color:#eff1f5;">.</span><span style="color:#ebcb8b;">Add </span><span style="color:#bf616a;">a </span><span style="color:#b48ead;">-&gt;</span><span style="color:#eff1f5;"> tn.</span><span style="color:#bf616a;">children</span><span style="color:#eff1f5;">().</span><span style="color:#bf616a;">add</span><span style="color:#eff1f5;">(a.</span><span style="color:#bf616a;">node</span><span style="color:#eff1f5;">());
+</span><span style="color:#eff1f5;">                        </span><span style="color:#b48ead;">case </span><span style="color:#ebcb8b;">FileNodeAction</span><span style="color:#eff1f5;">.</span><span style="color:#ebcb8b;">Delete </span><span style="color:#bf616a;">d </span><span style="color:#b48ead;">-&gt;</span><span style="color:#eff1f5;"> tn.</span><span style="color:#bf616a;">children</span><span style="color:#eff1f5;">().</span><span style="color:#bf616a;">remove</span><span style="color:#eff1f5;">(d.</span><span style="color:#bf616a;">node</span><span style="color:#eff1f5;">());
+</span><span style="color:#eff1f5;">                    }
+</span><span style="color:#eff1f5;">                } </span><span style="color:#b48ead;">else </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">                    </span><span style="color:#bf616a;">modifyFileNodes</span><span style="color:#eff1f5;">(tn.</span><span style="color:#bf616a;">children</span><span style="color:#eff1f5;">(), action);
+</span><span style="color:#eff1f5;">                }
+</span><span style="color:#eff1f5;">            }
+</span><span style="color:#eff1f5;">        });
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">    </span><span style="color:#65737e;">//...
+</span><span style="color:#eff1f5;">}
+</span></code></pre>
+<p>This even fits entirely on my screen:</p>
+<p><img src="https://ptrtojoel.dev/posts/design-patterns-are-temporary/chad-warden-modern.png" alt="alt text" /></p>
+<p>At least in this example, it's a lot nicer to follow and shifts the idea on being 'OO' and more on the data itself.</p>
+<p>Here's a side by side:</p>
+<p><img src="https://ptrtojoel.dev/posts/design-patterns-are-temporary/side-by-side.png" alt="alt text" /></p>
+<p>My take away from trying to get a better understanding on visitors is now having a simple understanding and appreciation of the visitor pattern, and how I could use it <strong>if</strong> I worked in a codebase that was Java &lt;21.</p>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;ptr_to_joel title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>
