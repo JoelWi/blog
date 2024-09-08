@@ -118,7 +118,7 @@
 <li>Is this design pattern a solution to a problem which doesn't exist?</li>
 </ul>
 <p>and so on.</p>
-<p>A few times I have come across patterns such as 'visitor' and never truly grasped what it was solving, or why I would use it. Young Joel was unsure, probably due to poor explanations, which I think, is still a problem when it comes to concepts. In Jiujitsu, it's extremely evident when a concept or a technique is practical and not bullshido (if you go to a gym, which competes at least in my anecdotal experience). But for the visitor pattern, it has always been:</p>
+<p>A few times I have come across patterns such as 'visitor' and never truly grasped what it was solving, or why I would use it. Young Joel was unsure, probably due to poor explanations, which I think, is still a problem when it comes to concepts. In Jiujitsu, it's extremely evident when a concept or a technique is practical and not bullshido (if you go to a gym, which competes at least in my, anecdotal experience). But for the visitor pattern, it has always been:</p>
 <p>&gt;"here's how the pattern works"</p>
 <p>&gt;just randomly logs stuff to stdout</p>
 <p>Not exactly helpful for junior/mid level devs with an unrealistic use case.</p>
@@ -282,8 +282,6 @@
 </span><span style="color:#eff1f5;">    @</span><span style="color:#bf616a;">Override
 </span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public void </span><span style="color:#8fa1b3;">visit</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">TreeNode </span><span style="color:#bf616a;">node</span><span style="color:#eff1f5;">) {
 </span><span style="color:#eff1f5;">        </span><span style="color:#65737e;">// NOOOOOOOOOOOOOOOOO TAKE YOUR FP OUT OF MY OOP
-</span><span style="color:#eff1f5;">
-</span><span style="color:#eff1f5;">
 </span><span style="color:#eff1f5;">        </span><span style="color:#65737e;">// REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 </span><span style="color:#eff1f5;">        node.children </span><span>=</span><span style="color:#eff1f5;"> node.children.</span><span style="color:#bf616a;">stream</span><span style="color:#eff1f5;">()
 </span><span style="color:#eff1f5;">                .</span><span style="color:#bf616a;">filter</span><span style="color:#eff1f5;">(</span><span style="color:#bf616a;">n </span><span style="color:#b48ead;">-&gt; </span><span>!</span><span style="color:#eff1f5;">n.name.</span><span style="color:#bf616a;">equals</span><span style="color:#eff1f5;">(name))
@@ -302,8 +300,7 @@
 </ul>
 <p>The only valid point I think is double dispatch, the rest are just opinions.</p>
 <p>Here's the modern Java version:</p>
-<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span>
-</span><span style="color:#b48ead;">package </span><span>visitor;
+<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#b48ead;">package </span><span>visitor;
 </span><span>
 </span><span style="color:#b48ead;">import </span><span>java.util.</span><span style="color:#ebcb8b;">ArrayList</span><span>;
 </span><span style="color:#b48ead;">import </span><span>java.util.</span><span style="color:#ebcb8b;">List</span><span>;
@@ -326,18 +323,6 @@
 </span><span>
 </span><span style="color:#b48ead;">public class </span><span style="color:#ebcb8b;">NewStuff </span><span style="color:#eff1f5;">{
 </span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public </span><span style="color:#8fa1b3;">NewStuff</span><span style="color:#eff1f5;">() {};
-</span><span style="color:#eff1f5;">
-</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">private void </span><span style="color:#8fa1b3;">traverseFileNodes</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">List</span><span style="color:#eff1f5;">&lt;</span><span style="color:#ebcb8b;">FileNode</span><span style="color:#eff1f5;">&gt; </span><span style="color:#bf616a;">nodes</span><span style="color:#eff1f5;">) {
-</span><span style="color:#eff1f5;">        nodes.</span><span style="color:#bf616a;">forEach</span><span style="color:#eff1f5;">(</span><span style="color:#bf616a;">n </span><span style="color:#b48ead;">-&gt; </span><span style="color:#eff1f5;">{
-</span><span style="color:#eff1f5;">            </span><span style="color:#b48ead;">switch </span><span style="color:#eff1f5;">(n) {
-</span><span style="color:#eff1f5;">                </span><span style="color:#b48ead;">case </span><span style="color:#ebcb8b;">BlobNode </span><span style="color:#bf616a;">bn </span><span style="color:#b48ead;">-&gt; </span><span style="color:#ebcb8b;">System</span><span style="color:#eff1f5;">.out.</span><span style="color:#bf616a;">println</span><span style="color:#eff1f5;">(</span><span>&quot;</span><span style="color:#a3be8c;">BlobNode: </span><span>&quot; +</span><span style="color:#eff1f5;"> bn.</span><span style="color:#bf616a;">name</span><span style="color:#eff1f5;">());
-</span><span style="color:#eff1f5;">                </span><span style="color:#b48ead;">case </span><span style="color:#ebcb8b;">TreeNode </span><span style="color:#bf616a;">tn </span><span style="color:#b48ead;">-&gt; </span><span style="color:#eff1f5;">{
-</span><span style="color:#eff1f5;">                    </span><span style="color:#ebcb8b;">System</span><span style="color:#eff1f5;">.out.</span><span style="color:#bf616a;">println</span><span style="color:#eff1f5;">(</span><span>&quot;</span><span style="color:#a3be8c;">TreeNode: </span><span>&quot; +</span><span style="color:#eff1f5;"> tn.</span><span style="color:#bf616a;">name</span><span style="color:#eff1f5;">());
-</span><span style="color:#eff1f5;">                    </span><span style="color:#bf616a;">traverseFileNodes</span><span style="color:#eff1f5;">(tn.</span><span style="color:#bf616a;">children</span><span style="color:#eff1f5;">());
-</span><span style="color:#eff1f5;">                }
-</span><span style="color:#eff1f5;">            }
-</span><span style="color:#eff1f5;">        });
-</span><span style="color:#eff1f5;">    }
 </span><span style="color:#eff1f5;">
 </span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">private void </span><span style="color:#8fa1b3;">modifyFileNodes</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">List</span><span style="color:#eff1f5;">&lt;</span><span style="color:#ebcb8b;">FileNode</span><span style="color:#eff1f5;">&gt; </span><span style="color:#bf616a;">nodes</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">FileNodeAction </span><span style="color:#bf616a;">action</span><span style="color:#eff1f5;">) {
 </span><span style="color:#eff1f5;">        nodes.</span><span style="color:#bf616a;">forEach</span><span style="color:#eff1f5;">(</span><span style="color:#bf616a;">n </span><span style="color:#b48ead;">-&gt; </span><span style="color:#eff1f5;">{
