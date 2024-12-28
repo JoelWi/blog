@@ -133,7 +133,7 @@ It’s not completely flexible, so if you need more control, you should try the 
 <h1 id="you-read-the-friendly-manual">YOU READ THE FRIENDLY MANUAL</h1>
 <p>I expect the majority to fit here, and <a href="https://github.com/mfussenegger/nvim-jdtls">nvim-jdtls</a> is the go-to Java plugin for LSP support in Neovim. You have full access to configure JDTLS, and I highly recommend reading through the available options.</p>
 <p>Just remember to install <strong>JDTLS</strong> via <strong>Mason</strong>.</p>
-<p>Sometimes you will need to provide a reference jar that the LSP can hook into loading, I can't remember if I had to do this for e.g. Lombok, but keep that in mind (I at least remember I had to for Playwright). In my reference config I provide below, I highlight where you need to do this.</p>
+<p>Sometimes you will need to provide a reference JAR that the LSP can hook into loading. I downloaded a Lombok JAR and added it at the JDTLS install path (you will see this in my nvim-jdtls config below), and I at least know this had to be done for Playwright under 'referencedLibraries'.</p>
 <h1 id="debugging">DEBUGGING</h1>
 <p>Debugging can be done inside Neovim, but again, keep in mind that you <em>may</em> have a better experience in a Java-focused IDE.</p>
 <p>I recommend installing <a href="https://github.com/mfussenegger/nvim-dap">nvim-dap</a> and <a href="https://github.com/rcarriga/nvim-dap-ui">nvim-dap-ui</a>.</p>
