@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             So You Want to Write Java in Neovim
+            
+        </title>
+
+        
+            <meta property="og:title" content="So You Want to Write Java in Neovim" />
+        
+    
+
+    
+        
+            <meta property="og:description" content="I have been doing Java in Neovim for quite a while at work, and it’s been a very pleasant experience. As Neovim usage grows (especially amongst the younger crowd), I want to share how I do it." />
+        
+    
+
+    
+        
+            <meta name="description" content="I have been doing Java in Neovim for quite a while at work, and it’s been a very pleasant experience. As Neovim usage grows (especially amongst the younger crowd), I want to share how I do it." />
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=XXXX-XXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'XXXX-XXXXX');
+        </script>
+    
+
+    
+    
+        <script src=https://ptrtojoel.dev/js/feather.min.js></script>
+    
+
+
+    
+        <link href=https://ptrtojoel.dev/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://ptrtojoel.dev/css/main.css />
+
+    
+
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=https:&#x2F;&#x2F;ptrtojoel.dev></a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>Home</a>
+        
+            <a href=&#x2F;posts>Posts</a>
+        
+            <a href=&#x2F;tags>Tags</a>
+        
+
+        
+
+        
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">So You Want to Write Java in Neovim</h1>
+            <div class="meta">
+                
+                on  2024-12-28
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <p>Note: I plan on keeping this post updated if I need to add more content or change something</p>
+<p><img src="https://ptrtojoel.dev/posts/so-you-want-to-write-java-in-neovim/neovim-test.png" alt="alt text" /></p>
+<p>I have been doing Java in Neovim for quite a while at work, and it’s been a very pleasant experience. As Neovim usage grows (especially amongst the younger crowd), I want to share how I do it.</p>
+<p>I think historically it's been considered a painful experience, but with guidance, it can be very straightforward!</p>
+<p>I’ll preface this by saying that if Neovim isn’t your primary editor, you should first try an IDE specifically for Java (they should all have a Vim plugin):</p>
+<ul>
+<li>Eclipse</li>
+<li>IntelliJ</li>
+<li>Apache Netbeans</li>
+</ul>
+<p>If Neovim is your primary editor, you probably hate opening *insert IDE that turns you into snail* for a specific language, and so did I.</p>
+<h1 id="lsp">LSP</h1>
+<p>Java has one LSP option for Neovim, and that’s JDTLS (Java Development Tools Language Server) by Eclipse. You should read the project README for a high-level overview on it (including features): <a href="https://github.com/eclipse-jdtls/eclipse.jdt.ls">JDTLS GitHub</a></p>
+<p>It’s a great LSP for Java, and I think it’s all you need to work with Java projects. My personal workflow usually involves one tmux window with a project open and another window handling the compiling, testing etc</p>
+<p><img src="https://ptrtojoel.dev/posts/so-you-want-to-write-java-in-neovim/neovim-k.png" alt="alt text" /></p>
+<p>To use JDTLS in Neovim, there are two plugins you can choose from, and which you decide on depends on your preferences.</p>
+<h1 id="you-use-a-distro">YOU USE A DISTRO</h1>
+<p>If you're happy accepting out-of-the-box, all-in-one setups, then <a href="https://github.com/nvim-java/nvim-java">nvim-java</a> might be for you.
+It attempts to be a comprehensive solution with popular defaults, and be hassle-free when it comes to LSP, debugging, testing setups.
+It’s not completely flexible, so if you need more control, you should try the next option.</p>
+<h1 id="you-read-the-friendly-manual">YOU READ THE FRIENDLY MANUAL</h1>
+<p>I expect the majority to fit here, and <a href="https://github.com/mfussenegger/nvim-jdtls">nvim-jdtls</a> is the go-to Java plugin for LSP support in Neovim. You have full access to configure JDTLS, and I highly recommend reading through the available options.</p>
+<p>Just remember to install <strong>JDTLS</strong> via <strong>Mason</strong>.</p>
+<p>Sometimes you will need to provide a reference jar that the LSP can hook into loading, I can't remember if I had to do this for e.g. Lombok, but keep that in mind (I at least remember I had to for Playwright). In my reference config I provide below, I highlight where you need to do this.</p>
+<h1 id="debugging">DEBUGGING</h1>
+<p>Debugging can be done inside Neovim, but again, keep in mind that you <em>may</em> have a better experience in a Java-focused IDE.</p>
+<p>I recommend installing <a href="https://github.com/mfussenegger/nvim-dap">nvim-dap</a> and <a href="https://github.com/rcarriga/nvim-dap-ui">nvim-dap-ui</a>.</p>
+<p>You will need to install <a href="https://github.com/microsoft/java-debug">java-debug-adapter</a> from Mason OR download it and reference it in the lsp config (for nvim-jdtls only).</p>
+<p><img src="https://ptrtojoel.dev/posts/so-you-want-to-write-java-in-neovim/neovim-dap.png" alt="alt text" /></p>
+<h1 id="testing">TESTING</h1>
+<p>Working with tests inside Neovim is also possible, follows a similar setup to the above.</p>
+<p>You will need to install <a href="https://github.com/microsoft/vscode-java-test">java-test</a> from Mason OR download it and reference it in the lsp config (for nvim-jdtls only).</p>
+<h1 id="my-setup">MY SETUP</h1>
+<p>I will show what I have as a point of reference:</p>
+<p>I imagine you are also using treesitter, lspzero etc.</p>
+<p><strong>JDTLS</strong></p>
+<pre data-lang="lua" style="background-color:#2b303b;color:#c0c5ce;" class="language-lua "><code class="language-lua" data-lang="lua"><span style="color:#b48ead;">local </span><span style="color:#bf616a;">java_cmds </span><span>= </span><span style="color:#bf616a;">vim</span><span>.api.</span><span style="color:#bf616a;">nvim_create_augroup</span><span>(&#39;</span><span style="color:#a3be8c;">java_cmds</span><span>&#39;, { </span><span style="color:#a3be8c;">clear </span><span>= </span><span style="color:#d08770;">true </span><span>})
+</span><span style="color:#b48ead;">local </span><span style="color:#bf616a;">cache_vars </span><span>= {}
+</span><span>
+</span><span style="color:#b48ead;">local </span><span style="color:#bf616a;">root_files </span><span>= {
+</span><span>    &#39;</span><span style="color:#a3be8c;">.git</span><span>&#39;,
+</span><span>    &#39;</span><span style="color:#a3be8c;">mvnw</span><span>&#39;,
+</span><span>    &#39;</span><span style="color:#a3be8c;">gradlew</span><span>&#39;,
+</span><span>    &#39;</span><span style="color:#a3be8c;">pom.xml</span><span>&#39;,
+</span><span>    &#39;</span><span style="color:#a3be8c;">build.gradle</span><span>&#39;,
+</span><span>    &#39;</span><span style="color:#a3be8c;">build.sbt</span><span>&#39;
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">local </span><span style="color:#bf616a;">features </span><span>= {
+</span><span>    </span><span style="color:#65737e;">-- change this to `true` to enable codelens
+</span><span>    </span><span style="color:#a3be8c;">codelens </span><span>= </span><span style="color:#d08770;">true</span><span>,
+</span><span>
+</span><span>    </span><span style="color:#65737e;">-- change this to `true` if you have `nvim-dap`,
+</span><span>    </span><span style="color:#65737e;">-- `java-test` and `java-debug-adapter` installed
+</span><span>    </span><span style="color:#a3be8c;">debugger </span><span>= </span><span style="color:#d08770;">true</span><span>,
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">local function </span><span style="color:#8fa1b3;">get_jdtls_paths</span><span>()
+</span><span>    </span><span style="color:#b48ead;">if </span><span style="color:#bf616a;">cache_vars</span><span>.paths </span><span style="color:#b48ead;">then
+</span><span>        </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">cache_vars</span><span>.paths
+</span><span>    </span><span style="color:#b48ead;">end
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">local </span><span style="color:#bf616a;">path </span><span>= {}
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">path</span><span>.data_dir = </span><span style="color:#bf616a;">vim</span><span>.fn.</span><span style="color:#bf616a;">stdpath</span><span>(&#39;</span><span style="color:#a3be8c;">cache</span><span>&#39;) .. &#39;</span><span style="color:#a3be8c;">/nvim-jdtls</span><span>&#39;
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">local </span><span style="color:#bf616a;">jdtls_install </span><span>= </span><span style="color:#96b5b4;">require</span><span>(&#39;</span><span style="color:#a3be8c;">mason-registry</span><span>&#39;)
+</span><span>        .</span><span style="color:#bf616a;">get_package</span><span>(&#39;</span><span style="color:#a3be8c;">jdtls</span><span>&#39;)
+</span><span>        :</span><span style="color:#bf616a;">get_install_path</span><span>()
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">path</span><span>.java_agent = </span><span style="color:#bf616a;">jdtls_install </span><span>.. &#39;</span><span style="color:#a3be8c;">/lombok.jar</span><span>&#39;
+</span><span>    </span><span style="color:#bf616a;">path</span><span>.launcher_jar = </span><span style="color:#bf616a;">vim</span><span>.fn.</span><span style="color:#bf616a;">glob</span><span>(</span><span style="color:#bf616a;">jdtls_install </span><span>.. &#39;</span><span style="color:#a3be8c;">/plugins/org.eclipse.equinox.launcher_*.jar</span><span>&#39;)
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">if </span><span style="color:#bf616a;">vim</span><span>.fn.</span><span style="color:#bf616a;">has</span><span>(&#39;</span><span style="color:#a3be8c;">mac</span><span>&#39;) == </span><span style="color:#d08770;">1 </span><span style="color:#b48ead;">then
+</span><span>        </span><span style="color:#bf616a;">path</span><span>.platform_config = </span><span style="color:#bf616a;">jdtls_install </span><span>.. &#39;</span><span style="color:#a3be8c;">/config_mac</span><span>&#39;
+</span><span>    </span><span style="color:#b48ead;">elseif </span><span style="color:#bf616a;">vim</span><span>.fn.</span><span style="color:#bf616a;">has</span><span>(&#39;</span><span style="color:#a3be8c;">unix</span><span>&#39;) == </span><span style="color:#d08770;">1 </span><span style="color:#b48ead;">then
+</span><span>        </span><span style="color:#bf616a;">path</span><span>.platform_config = </span><span style="color:#bf616a;">jdtls_install </span><span>.. &#39;</span><span style="color:#a3be8c;">/config_linux</span><span>&#39;
+</span><span>    </span><span style="color:#b48ead;">elseif </span><span style="color:#bf616a;">vim</span><span>.fn.</span><span style="color:#bf616a;">has</span><span>(&#39;</span><span style="color:#a3be8c;">win32</span><span>&#39;) == </span><span style="color:#d08770;">1 </span><span style="color:#b48ead;">then
+</span><span>        </span><span style="color:#bf616a;">path</span><span>.platform_config = </span><span style="color:#bf616a;">jdtls_install </span><span>.. &#39;</span><span style="color:#a3be8c;">/config_win</span><span>&#39;
+</span><span>    </span><span style="color:#b48ead;">end
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">path</span><span>.bundles = {}
+</span><span>
+</span><span>    </span><span style="color:#65737e;">---
+</span><span>    </span><span style="color:#65737e;">-- Include java-test bundle if present
+</span><span>    </span><span style="color:#65737e;">---
+</span><span>    </span><span style="color:#b48ead;">local </span><span style="color:#bf616a;">java_test_path </span><span>= </span><span style="color:#96b5b4;">require</span><span>(&#39;</span><span style="color:#a3be8c;">mason-registry</span><span>&#39;)
+</span><span>        .</span><span style="color:#bf616a;">get_package</span><span>(&#39;</span><span style="color:#a3be8c;">java-test</span><span>&#39;)
+</span><span>        :</span><span style="color:#bf616a;">get_install_path</span><span>()
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">local </span><span style="color:#bf616a;">java_test_bundle </span><span>= </span><span style="color:#bf616a;">vim</span><span>.</span><span style="color:#bf616a;">split</span><span>(
+</span><span>        </span><span style="color:#bf616a;">vim</span><span>.fn.</span><span style="color:#bf616a;">glob</span><span>(</span><span style="color:#bf616a;">java_test_path </span><span>.. &#39;</span><span style="color:#a3be8c;">/extension/server/*.jar</span><span>&#39;),
+</span><span>        &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;
+</span><span>    )
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">if </span><span style="color:#bf616a;">java_test_bundle</span><span>[</span><span style="color:#d08770;">1</span><span>] ~= &#39;&#39; </span><span style="color:#b48ead;">then
+</span><span>        </span><span style="color:#bf616a;">vim</span><span>.</span><span style="color:#bf616a;">list_extend</span><span>(</span><span style="color:#bf616a;">path</span><span>.bundles, </span><span style="color:#bf616a;">java_test_bundle</span><span>)
+</span><span>    </span><span style="color:#b48ead;">end
+</span><span>
+</span><span>    </span><span style="color:#65737e;">---
+</span><span>    </span><span style="color:#65737e;">-- Include java-debug-adapter bundle if present
+</span><span>    </span><span style="color:#65737e;">---
+</span><span>    </span><span style="color:#b48ead;">local </span><span style="color:#bf616a;">java_debug_path </span><span>= </span><span style="color:#96b5b4;">require</span><span>(&#39;</span><span style="color:#a3be8c;">mason-registry</span><span>&#39;)
+</span><span>        .</span><span style="color:#bf616a;">get_package</span><span>(&#39;</span><span style="color:#a3be8c;">java-debug-adapter</span><span>&#39;)
+</span><span>        :</span><span style="color:#bf616a;">get_install_path</span><span>()
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">local </span><span style="color:#bf616a;">java_debug_bundle </span><span>= </span><span style="color:#bf616a;">vim</span><span>.</span><span style="color:#bf616a;">split</span><span>(
+</span><span>        </span><span style="color:#bf616a;">vim</span><span>.fn.</span><span style="color:#bf616a;">glob</span><span>(</span><span style="color:#bf616a;">java_debug_path </span><span>.. &#39;</span><span style="color:#a3be8c;">/extension/server/com.microsoft.java.debug.plugin-*.jar</span><span>&#39;),
+</span><span>        &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;
+</span><span>    )
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">if </span><span style="color:#bf616a;">java_debug_bundle</span><span>[</span><span style="color:#d08770;">1</span><span>] ~= &#39;&#39; </span><span style="color:#b48ead;">then
+</span><span>        </span><span style="color:#bf616a;">vim</span><span>.</span><span style="color:#bf616a;">list_extend</span><span>(</span><span style="color:#bf616a;">path</span><span>.bundles, </span><span style="color:#bf616a;">java_debug_bundle</span><span>)
+</span><span>    </span><span style="color:#b48ead;">end
+</span><span>
+</span><span>    </span><span style="color:#65737e;">---
+</span><span>    </span><span style="color:#65737e;">-- Useful if you&#39;re starting jdtls with a Java version that&#39;s
+</span><span>    </span><span style="color:#65737e;">-- different from the one the project uses.
+</span><span>    </span><span style="color:#65737e;">---
+</span><span>    </span><span style="color:#bf616a;">path</span><span>.runtimes = {
+</span><span>        </span><span style="color:#65737e;">-- Note: the field `name` must be a valid `ExecutionEnvironment`,
+</span><span>        </span><span style="color:#65737e;">-- you can find the list here:
+</span><span>        </span><span style="color:#65737e;">-- https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
+</span><span>        </span><span style="color:#65737e;">--
+</span><span>        </span><span style="color:#65737e;">-- This example assume you are using sdkman: https://sdkman.io
+</span><span>        {
+</span><span>            </span><span style="color:#a3be8c;">name </span><span>= &#39;</span><span style="color:#a3be8c;">JavaSE-21</span><span>&#39;,
+</span><span>            </span><span style="color:#a3be8c;">path </span><span>= </span><span style="color:#bf616a;">vim</span><span>.fn.</span><span style="color:#bf616a;">expand</span><span>(&#39;</span><span style="color:#a3be8c;">~/.sdkman/candidates/java/21.0.2-tem</span><span>&#39;),
+</span><span>        },
+</span><span>        {
+</span><span>            </span><span style="color:#a3be8c;">name </span><span>= &#39;</span><span style="color:#a3be8c;">JavaSE-23</span><span>&#39;,
+</span><span>            </span><span style="color:#a3be8c;">path </span><span>= </span><span style="color:#bf616a;">vim</span><span>.fn.</span><span style="color:#bf616a;">expand</span><span>(&#39;</span><span style="color:#a3be8c;">~/.sdkman/candidates/java/23-tem</span><span>&#39;),
+</span><span>        }
+</span><span>
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">cache_vars</span><span>.paths = </span><span style="color:#bf616a;">path
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">path
+</span><span style="color:#b48ead;">end
+</span><span>
+</span><span style="color:#b48ead;">local function </span><span style="color:#8fa1b3;">enable_codelens</span><span>(bufnr)
+</span><span>    </span><span style="color:#96b5b4;">pcall</span><span>(</span><span style="color:#bf616a;">vim</span><span>.lsp.codelens.refresh)
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">vim</span><span>.api.</span><span style="color:#bf616a;">nvim_create_autocmd</span><span>(&#39;</span><span style="color:#a3be8c;">BufWritePost</span><span>&#39;, {
+</span><span>        </span><span style="color:#a3be8c;">buffer </span><span>= </span><span style="color:#bf616a;">bufnr</span><span>,
+</span><span>        </span><span style="color:#a3be8c;">group </span><span>= </span><span style="color:#bf616a;">java_cmds</span><span>,
+</span><span>        </span><span style="color:#a3be8c;">desc </span><span>= &#39;</span><span style="color:#a3be8c;">refresh codelens</span><span>&#39;,
+</span><span>        </span><span style="color:#8fa1b3;">callback </span><span>= </span><span style="color:#b48ead;">function</span><span>()
+</span><span>            </span><span style="color:#96b5b4;">pcall</span><span>(</span><span style="color:#bf616a;">vim</span><span>.lsp.codelens.refresh)
+</span><span>        </span><span style="color:#b48ead;">end</span><span>,
+</span><span>    })
+</span><span style="color:#b48ead;">end
+</span><span>
+</span><span style="color:#b48ead;">local function </span><span style="color:#8fa1b3;">enable_debugger</span><span>(bufnr)
+</span><span>    </span><span style="color:#96b5b4;">require</span><span>(&#39;</span><span style="color:#a3be8c;">jdtls</span><span>&#39;).</span><span style="color:#bf616a;">setup_dap</span><span>({ </span><span style="color:#a3be8c;">hotcodereplace </span><span>= &#39;</span><span style="color:#a3be8c;">auto</span><span>&#39; })
+</span><span>    </span><span style="color:#96b5b4;">require</span><span>(&#39;</span><span style="color:#a3be8c;">jdtls.dap</span><span>&#39;).</span><span style="color:#bf616a;">setup_dap_main_class_configs</span><span>()
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">local </span><span style="color:#bf616a;">opts </span><span>= { </span><span style="color:#a3be8c;">buffer </span><span>= </span><span style="color:#bf616a;">bufnr </span><span>}
+</span><span>    </span><span style="color:#bf616a;">vim</span><span>.keymap.</span><span style="color:#bf616a;">set</span><span>(&#39;</span><span style="color:#a3be8c;">n</span><span>&#39;, &#39;</span><span style="color:#a3be8c;">&lt;leader&gt;df</span><span>&#39;, &quot;</span><span style="color:#a3be8c;">&lt;cmd&gt;lua require(&#39;jdtls&#39;).test_class()&lt;cr&gt;</span><span>&quot;, </span><span style="color:#bf616a;">opts</span><span>)
+</span><span>    </span><span style="color:#bf616a;">vim</span><span>.keymap.</span><span style="color:#bf616a;">set</span><span>(&#39;</span><span style="color:#a3be8c;">n</span><span>&#39;, &#39;</span><span style="color:#a3be8c;">&lt;leader&gt;dn</span><span>&#39;, &quot;</span><span style="color:#a3be8c;">&lt;cmd&gt;lua require(&#39;jdtls&#39;).test_nearest_method()&lt;cr&gt;</span><span>&quot;, </span><span style="color:#bf616a;">opts</span><span>)
+</span><span style="color:#b48ead;">end
+</span><span>
+</span><span style="color:#b48ead;">local function </span><span style="color:#8fa1b3;">jdtls_on_attach</span><span>(client, bufnr)
+</span><span>    </span><span style="color:#65737e;">--vim.lsp.inlay_hint(bufnr, true)
+</span><span>    </span><span style="color:#b48ead;">if </span><span style="color:#bf616a;">features</span><span>.debugger </span><span style="color:#b48ead;">then
+</span><span>        </span><span style="color:#bf616a;">enable_debugger</span><span>(</span><span style="color:#bf616a;">bufnr</span><span>)
+</span><span>    </span><span style="color:#b48ead;">end
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">if </span><span style="color:#bf616a;">features</span><span>.codelens </span><span style="color:#b48ead;">then
+</span><span>        </span><span style="color:#bf616a;">enable_codelens</span><span>(</span><span style="color:#bf616a;">bufnr</span><span>)
+</span><span>    </span><span style="color:#b48ead;">end
+</span><span>
+</span><span>    </span><span style="color:#65737e;">-- The following mappings are based on the suggested usage of nvim-jdtls
+</span><span>    </span><span style="color:#65737e;">-- https://github.com/mfussenegger/nvim-jdtls#usage
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">local </span><span style="color:#bf616a;">opts </span><span>= { </span><span style="color:#a3be8c;">buffer </span><span>= </span><span style="color:#bf616a;">bufnr </span><span>}
+</span><span>    </span><span style="color:#bf616a;">vim</span><span>.keymap.</span><span style="color:#bf616a;">set</span><span>(&#39;</span><span style="color:#a3be8c;">n</span><span>&#39;, &#39;</span><span style="color:#a3be8c;">&lt;A-o&gt;</span><span>&#39;, &quot;</span><span style="color:#a3be8c;">&lt;cmd&gt;lua require(&#39;jdtls&#39;).organize_imports()&lt;cr&gt;</span><span>&quot;, </span><span style="color:#bf616a;">opts</span><span>)
+</span><span>    </span><span style="color:#bf616a;">vim</span><span>.keymap.</span><span style="color:#bf616a;">set</span><span>(&#39;</span><span style="color:#a3be8c;">n</span><span>&#39;, &#39;</span><span style="color:#a3be8c;">crv</span><span>&#39;, &quot;</span><span style="color:#a3be8c;">&lt;cmd&gt;lua require(&#39;jdtls&#39;).extract_variable()&lt;cr&gt;</span><span>&quot;, </span><span style="color:#bf616a;">opts</span><span>)
+</span><span>    </span><span style="color:#bf616a;">vim</span><span>.keymap.</span><span style="color:#bf616a;">set</span><span>(&#39;</span><span style="color:#a3be8c;">x</span><span>&#39;, &#39;</span><span style="color:#a3be8c;">crv</span><span>&#39;, &quot;</span><span style="color:#a3be8c;">&lt;esc&gt;&lt;cmd&gt;lua require(&#39;jdtls&#39;).extract_variable(true)&lt;cr&gt;</span><span>&quot;, </span><span style="color:#bf616a;">opts</span><span>)
+</span><span>    </span><span style="color:#bf616a;">vim</span><span>.keymap.</span><span style="color:#bf616a;">set</span><span>(&#39;</span><span style="color:#a3be8c;">n</span><span>&#39;, &#39;</span><span style="color:#a3be8c;">crc</span><span>&#39;, &quot;</span><span style="color:#a3be8c;">&lt;cmd&gt;lua require(&#39;jdtls&#39;).extract_constant()&lt;cr&gt;</span><span>&quot;, </span><span style="color:#bf616a;">opts</span><span>)
+</span><span>    </span><span style="color:#bf616a;">vim</span><span>.keymap.</span><span style="color:#bf616a;">set</span><span>(&#39;</span><span style="color:#a3be8c;">x</span><span>&#39;, &#39;</span><span style="color:#a3be8c;">crc</span><span>&#39;, &quot;</span><span style="color:#a3be8c;">&lt;esc&gt;&lt;cmd&gt;lua require(&#39;jdtls&#39;).extract_constant(true)&lt;cr&gt;</span><span>&quot;, </span><span style="color:#bf616a;">opts</span><span>)
+</span><span>    </span><span style="color:#bf616a;">vim</span><span>.keymap.</span><span style="color:#bf616a;">set</span><span>(&#39;</span><span style="color:#a3be8c;">x</span><span>&#39;, &#39;</span><span style="color:#a3be8c;">crm</span><span>&#39;, &quot;</span><span style="color:#a3be8c;">&lt;esc&gt;&lt;Cmd&gt;lua require(&#39;jdtls&#39;).extract_method(true)&lt;cr&gt;</span><span>&quot;, </span><span style="color:#bf616a;">opts</span><span>)
+</span><span>    </span><span style="color:#bf616a;">vim</span><span>.keymap.</span><span style="color:#bf616a;">set</span><span>(&#39;</span><span style="color:#a3be8c;">n</span><span>&#39;, &#39;</span><span style="color:#a3be8c;">&lt;leader&gt;pjp</span><span>&#39;, &quot;</span><span style="color:#a3be8c;">&lt;cmd&gt;lua require(&#39;jdtls&#39;).javap()&lt;cr&gt;</span><span>&quot;, </span><span style="color:#bf616a;">opts</span><span>)
+</span><span style="color:#b48ead;">end
+</span><span>
+</span><span style="color:#b48ead;">local function </span><span style="color:#8fa1b3;">jdtls_setup</span><span>(event)
+</span><span>    </span><span style="color:#b48ead;">local </span><span style="color:#bf616a;">jdtls </span><span>= </span><span style="color:#96b5b4;">require</span><span>(&#39;</span><span style="color:#a3be8c;">jdtls</span><span>&#39;)
+</span><span>    </span><span style="color:#b48ead;">local </span><span style="color:#bf616a;">extendedClientCapabilities </span><span>= </span><span style="color:#bf616a;">jdtls</span><span>.extendedClientCapabilities;
+</span><span>    </span><span style="color:#bf616a;">extendedClientCapabilities</span><span>.onCompletionItemSelectedCommand = &quot;</span><span style="color:#a3be8c;">editor.action.triggerParameterHints</span><span>&quot;
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">local </span><span style="color:#bf616a;">path </span><span>= </span><span style="color:#bf616a;">get_jdtls_paths</span><span>()
+</span><span>    </span><span style="color:#b48ead;">local </span><span style="color:#bf616a;">data_dir </span><span>= </span><span style="color:#bf616a;">path</span><span>.data_dir .. &#39;</span><span style="color:#a3be8c;">/</span><span>&#39; .. </span><span style="color:#bf616a;">vim</span><span>.fn.</span><span style="color:#bf616a;">fnamemodify</span><span>(</span><span style="color:#bf616a;">vim</span><span>.fn.</span><span style="color:#bf616a;">getcwd</span><span>(), &#39;</span><span style="color:#a3be8c;">:p:h:t</span><span>&#39;)
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">if </span><span style="color:#bf616a;">cache_vars</span><span>.capabilities == </span><span style="color:#d08770;">nil </span><span style="color:#b48ead;">then
+</span><span>        </span><span style="color:#bf616a;">jdtls</span><span>.extendedClientCapabilities.resolveAdditionalTextEditsSupport = </span><span style="color:#d08770;">true
+</span><span>
+</span><span>        </span><span style="color:#b48ead;">local </span><span style="color:#bf616a;">ok_cmp</span><span>, </span><span style="color:#bf616a;">cmp_lsp </span><span>= </span><span style="color:#96b5b4;">pcall</span><span>(</span><span style="color:#96b5b4;">require</span><span>, &#39;</span><span style="color:#a3be8c;">cmp_nvim_lsp</span><span>&#39;)
+</span><span>        </span><span style="color:#bf616a;">cache_vars</span><span>.capabilities = </span><span style="color:#bf616a;">vim</span><span>.</span><span style="color:#bf616a;">tbl_deep_extend</span><span>(
+</span><span>            &#39;</span><span style="color:#a3be8c;">force</span><span>&#39;,
+</span><span>            </span><span style="color:#bf616a;">vim</span><span>.lsp.protocol.</span><span style="color:#bf616a;">make_client_capabilities</span><span>(),
+</span><span>            </span><span style="color:#bf616a;">ok_cmp </span><span>and </span><span style="color:#bf616a;">cmp_lsp</span><span>.</span><span style="color:#bf616a;">default_capabilities</span><span>() or {}
+</span><span>        )
+</span><span>    </span><span style="color:#b48ead;">end
+</span><span>
+</span><span>    </span><span style="color:#65737e;">-- The command that starts the language server
+</span><span>    </span><span style="color:#65737e;">-- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
+</span><span>    </span><span style="color:#b48ead;">local </span><span style="color:#bf616a;">cmd </span><span>= {
+</span><span>        &#39;</span><span style="color:#a3be8c;">java</span><span>&#39;,
+</span><span>
+</span><span>        &#39;</span><span style="color:#a3be8c;">-Declipse.application=org.eclipse.jdt.ls.core.id1</span><span>&#39;,
+</span><span>        &#39;</span><span style="color:#a3be8c;">-Dosgi.bundles.defaultStartLevel=4</span><span>&#39;,
+</span><span>        &#39;</span><span style="color:#a3be8c;">-Declipse.product=org.eclipse.jdt.ls.core.product</span><span>&#39;,
+</span><span>        &#39;</span><span style="color:#a3be8c;">-Dlog.protocol=true</span><span>&#39;,
+</span><span>        &#39;</span><span style="color:#a3be8c;">-Dlog.level=ALL</span><span>&#39;,
+</span><span>        &#39;</span><span style="color:#a3be8c;">-javaagent:</span><span>&#39; .. </span><span style="color:#bf616a;">path</span><span>.java_agent,
+</span><span>        &#39;</span><span style="color:#a3be8c;">-Xms1g</span><span>&#39;,
+</span><span>        &#39;</span><span style="color:#a3be8c;">--add-modules=ALL-SYSTEM</span><span>&#39;,
+</span><span>        &#39;</span><span style="color:#a3be8c;">--add-opens</span><span>&#39;,
+</span><span>        &#39;</span><span style="color:#a3be8c;">java.base/java.util=ALL-UNNAMED</span><span>&#39;,
+</span><span>        &#39;</span><span style="color:#a3be8c;">--add-opens</span><span>&#39;,
+</span><span>        &#39;</span><span style="color:#a3be8c;">java.base/java.lang=ALL-UNNAMED</span><span>&#39;,
+</span><span>
+</span><span>        </span><span style="color:#65737e;">-- 💀
+</span><span>        &#39;</span><span style="color:#a3be8c;">-jar</span><span>&#39;,
+</span><span>        </span><span style="color:#bf616a;">path</span><span>.launcher_jar,
+</span><span>
+</span><span>        </span><span style="color:#65737e;">-- 💀
+</span><span>        &#39;</span><span style="color:#a3be8c;">-configuration</span><span>&#39;,
+</span><span>        </span><span style="color:#bf616a;">path</span><span>.platform_config,
+</span><span>
+</span><span>        </span><span style="color:#65737e;">-- 💀
+</span><span>        &#39;</span><span style="color:#a3be8c;">-data</span><span>&#39;,
+</span><span>        </span><span style="color:#bf616a;">data_dir</span><span>,
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">local </span><span style="color:#bf616a;">lsp_settings </span><span>= {
+</span><span>        </span><span style="color:#a3be8c;">java </span><span>= {
+</span><span>            </span><span style="color:#65737e;">-- jdt = {
+</span><span>            </span><span style="color:#65737e;">--   ls = {
+</span><span>            </span><span style="color:#65737e;">--     vmargs = &quot;-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m&quot;
+</span><span>            </span><span style="color:#65737e;">--   }
+</span><span>            </span><span style="color:#65737e;">-- },
+</span><span>            </span><span style="color:#a3be8c;">project </span><span>= {
+</span><span>                </span><span style="color:#a3be8c;">referencedLibraries </span><span>= {
+</span><span>                    </span><span style="color:#65737e;">-- add any library jars here for the lsp to pick them up
+</span><span>                },
+</span><span>            },
+</span><span>            </span><span style="color:#a3be8c;">eclipse </span><span>= {
+</span><span>                </span><span style="color:#a3be8c;">downloadSources </span><span>= </span><span style="color:#d08770;">true</span><span>,
+</span><span>            },
+</span><span>            </span><span style="color:#a3be8c;">configuration </span><span>= {
+</span><span>                </span><span style="color:#a3be8c;">updateBuildConfiguration </span><span>= &#39;</span><span style="color:#a3be8c;">interactive</span><span>&#39;,
+</span><span>                </span><span style="color:#a3be8c;">runtimes </span><span>= </span><span style="color:#bf616a;">path</span><span>.runtimes,
+</span><span>            },
+</span><span>            </span><span style="color:#a3be8c;">maven </span><span>= {
+</span><span>                </span><span style="color:#a3be8c;">downloadSources </span><span>= </span><span style="color:#d08770;">true</span><span>,
+</span><span>            },
+</span><span>            </span><span style="color:#a3be8c;">implementationsCodeLens </span><span>= {
+</span><span>                </span><span style="color:#a3be8c;">enabled </span><span>= </span><span style="color:#d08770;">true</span><span>,
+</span><span>            },
+</span><span>            </span><span style="color:#a3be8c;">referencesCodeLens </span><span>= {
+</span><span>                </span><span style="color:#a3be8c;">enabled </span><span>= </span><span style="color:#d08770;">true</span><span>,
+</span><span>            },
+</span><span>            </span><span style="color:#a3be8c;">references </span><span>= {
+</span><span>                </span><span style="color:#a3be8c;">includeDecompiledSources </span><span>= </span><span style="color:#d08770;">true</span><span>,
+</span><span>            },
+</span><span>            </span><span style="color:#a3be8c;">inlayHints </span><span>= {
+</span><span>                </span><span style="color:#a3be8c;">enabled </span><span>= </span><span style="color:#d08770;">true</span><span>,
+</span><span>                </span><span style="color:#65737e;">--parameterNames = {
+</span><span>                </span><span style="color:#65737e;">--   enabled = &#39;all&#39; -- literals, all, none
+</span><span>                </span><span style="color:#65737e;">--}
+</span><span>            },
+</span><span>            </span><span style="color:#a3be8c;">format </span><span>= {
+</span><span>                </span><span style="color:#a3be8c;">enabled </span><span>= </span><span style="color:#d08770;">true</span><span>,
+</span><span>                </span><span style="color:#65737e;">-- settings = {
+</span><span>                </span><span style="color:#65737e;">--   profile = &#39;asdf&#39;
+</span><span>                </span><span style="color:#65737e;">-- },
+</span><span>            }
+</span><span>        },
+</span><span>        </span><span style="color:#a3be8c;">signatureHelp </span><span>= {
+</span><span>            </span><span style="color:#a3be8c;">enabled </span><span>= </span><span style="color:#d08770;">true</span><span>,
+</span><span>        },
+</span><span>        </span><span style="color:#a3be8c;">completion </span><span>= {
+</span><span>            </span><span style="color:#a3be8c;">favoriteStaticMembers </span><span>= {
+</span><span>                &#39;</span><span style="color:#a3be8c;">org.hamcrest.MatcherAssert.assertThat</span><span>&#39;,
+</span><span>                &#39;</span><span style="color:#a3be8c;">org.hamcrest.Matchers.*</span><span>&#39;,
+</span><span>                &#39;</span><span style="color:#a3be8c;">org.hamcrest.CoreMatchers.*</span><span>&#39;,
+</span><span>                &#39;</span><span style="color:#a3be8c;">org.junit.jupiter.api.Assertions.*</span><span>&#39;,
+</span><span>                &#39;</span><span style="color:#a3be8c;">java.util.Objects.requireNonNull</span><span>&#39;,
+</span><span>                &#39;</span><span style="color:#a3be8c;">java.util.Objects.requireNonNullElse</span><span>&#39;,
+</span><span>                &#39;</span><span style="color:#a3be8c;">org.mockito.Mockito.*</span><span>&#39;,
+</span><span>            },
+</span><span>        },
+</span><span>        </span><span style="color:#a3be8c;">contentProvider </span><span>= {
+</span><span>            </span><span style="color:#a3be8c;">preferred </span><span>= &#39;</span><span style="color:#a3be8c;">fernflower</span><span>&#39;,
+</span><span>        },
+</span><span>        </span><span style="color:#a3be8c;">extendedClientCapabilities </span><span>= </span><span style="color:#bf616a;">jdtls</span><span>.extendedClientCapabilities,
+</span><span>        </span><span style="color:#a3be8c;">sources </span><span>= {
+</span><span>            </span><span style="color:#a3be8c;">organizeImports </span><span>= {
+</span><span>                </span><span style="color:#a3be8c;">starThreshold </span><span>= </span><span style="color:#d08770;">9999</span><span>,
+</span><span>                </span><span style="color:#a3be8c;">staticStarThreshold </span><span>= </span><span style="color:#d08770;">9999</span><span>,
+</span><span>            }
+</span><span>        },
+</span><span>        </span><span style="color:#a3be8c;">codeGeneration </span><span>= {
+</span><span>            </span><span style="color:#a3be8c;">toString </span><span>= {
+</span><span>                </span><span style="color:#a3be8c;">template </span><span>= &#39;</span><span style="color:#a3be8c;">${object.className}{${member.name()}=${member.value}, ${otherMembers}}</span><span>&#39;,
+</span><span>            },
+</span><span>            </span><span style="color:#a3be8c;">useBlocks </span><span>= </span><span style="color:#d08770;">true</span><span>,
+</span><span>        },
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#65737e;">-- This starts a new client &amp; server,
+</span><span>    </span><span style="color:#65737e;">-- or attaches to an existing client &amp; server depending on the `root_dir`.
+</span><span>    </span><span style="color:#bf616a;">jdtls</span><span>.</span><span style="color:#bf616a;">start_or_attach</span><span>({
+</span><span>        </span><span style="color:#a3be8c;">cmd </span><span>= </span><span style="color:#bf616a;">cmd</span><span>,
+</span><span>        </span><span style="color:#a3be8c;">settings </span><span>= </span><span style="color:#bf616a;">lsp_settings</span><span>,
+</span><span>        </span><span style="color:#a3be8c;">on_attach </span><span>= </span><span style="color:#bf616a;">jdtls_on_attach</span><span>,
+</span><span>        </span><span style="color:#a3be8c;">capabilities </span><span>= </span><span style="color:#bf616a;">cache_vars</span><span>.capabilities,
+</span><span>        </span><span style="color:#a3be8c;">root_dir </span><span>= </span><span style="color:#bf616a;">jdtls</span><span>.setup.</span><span style="color:#bf616a;">find_root</span><span>(</span><span style="color:#bf616a;">root_files</span><span>),
+</span><span>        </span><span style="color:#a3be8c;">flags </span><span>= {
+</span><span>            </span><span style="color:#a3be8c;">allow_incremental_sync </span><span>= </span><span style="color:#d08770;">true</span><span>,
+</span><span>        },
+</span><span>        </span><span style="color:#a3be8c;">init_options </span><span>= {
+</span><span>            </span><span style="color:#a3be8c;">bundles </span><span>= </span><span style="color:#bf616a;">path</span><span>.bundles,
+</span><span>            </span><span style="color:#a3be8c;">extendedClientCapabilities </span><span>= </span><span style="color:#bf616a;">extendedClientCapabilities</span><span>,
+</span><span>        },
+</span><span>    })
+</span><span style="color:#b48ead;">end
+</span><span>
+</span><span style="color:#bf616a;">vim</span><span>.api.</span><span style="color:#bf616a;">nvim_create_autocmd</span><span>(&#39;</span><span style="color:#a3be8c;">FileType</span><span>&#39;, {
+</span><span>    </span><span style="color:#a3be8c;">group </span><span>= </span><span style="color:#bf616a;">java_cmds</span><span>,
+</span><span>    </span><span style="color:#a3be8c;">pattern </span><span>= { &#39;</span><span style="color:#a3be8c;">java</span><span>&#39; },
+</span><span>    </span><span style="color:#a3be8c;">desc </span><span>= &#39;</span><span style="color:#a3be8c;">Setup jdtls</span><span>&#39;,
+</span><span>    </span><span style="color:#a3be8c;">callback </span><span>= </span><span style="color:#bf616a;">jdtls_setup</span><span>,
+</span><span>})
+</span></code></pre>
+<p><strong>DAP</strong></p>
+<pre data-lang="lua" style="background-color:#2b303b;color:#c0c5ce;" class="language-lua "><code class="language-lua" data-lang="lua"><span style="color:#b48ead;">local </span><span style="color:#bf616a;">dap </span><span>= </span><span style="color:#96b5b4;">require</span><span>(&#39;</span><span style="color:#a3be8c;">dap</span><span>&#39;)
+</span><span>
+</span><span style="color:#bf616a;">dap</span><span>.configurations.java = {
+</span><span>    {
+</span><span>        </span><span style="color:#a3be8c;">type </span><span>= &#39;</span><span style="color:#a3be8c;">java</span><span>&#39;,
+</span><span>        </span><span style="color:#a3be8c;">request </span><span>= &#39;</span><span style="color:#a3be8c;">launch</span><span>&#39;,
+</span><span>        </span><span style="color:#a3be8c;">name </span><span>= &#39;</span><span style="color:#a3be8c;">Launch Java Program</span><span>&#39;
+</span><span>    },
+</span><span>}
+</span><span>
+</span><span style="color:#bf616a;">vim</span><span>.fn.</span><span style="color:#bf616a;">sign_define</span><span>(&#39;</span><span style="color:#a3be8c;">DapBreakpoint</span><span>&#39;,
+</span><span>    {
+</span><span>        </span><span style="color:#a3be8c;">text </span><span>= &#39;</span><span style="color:#a3be8c;">🔴</span><span>&#39;,
+</span><span>        </span><span style="color:#a3be8c;">texthl </span><span>= &#39;</span><span style="color:#a3be8c;">DapBreakpointSymbol</span><span>&#39;,
+</span><span>        </span><span style="color:#a3be8c;">linehl </span><span>= &#39;</span><span style="color:#a3be8c;">DapBreakpoint</span><span>&#39;,
+</span><span>        </span><span style="color:#a3be8c;">numhl </span><span>= &#39;</span><span style="color:#a3be8c;">DapBreakpoint</span><span>&#39;
+</span><span>    })
+</span><span style="color:#bf616a;">vim</span><span>.fn.</span><span style="color:#bf616a;">sign_define</span><span>(&#39;</span><span style="color:#a3be8c;">DapStopped</span><span>&#39;,
+</span><span>    {
+</span><span>        </span><span style="color:#a3be8c;">texthl </span><span>= &#39;</span><span style="color:#a3be8c;">DapStoppedSymbol</span><span>&#39;,
+</span><span>        </span><span style="color:#a3be8c;">linehl </span><span>= &#39;</span><span style="color:#a3be8c;">CursorLine</span><span>&#39;,
+</span><span>        </span><span style="color:#a3be8c;">numhl </span><span>= &#39;</span><span style="color:#a3be8c;">DapBreakpoint</span><span>&#39;
+</span><span>    })
+</span><span>
+</span><span style="color:#bf616a;">vim</span><span>.keymap.</span><span style="color:#bf616a;">set</span><span>(&#39;</span><span style="color:#a3be8c;">n</span><span>&#39;, &#39;</span><span style="color:#a3be8c;">&lt;F5&gt;</span><span>&#39;, </span><span style="color:#b48ead;">function</span><span>() </span><span style="color:#96b5b4;">require</span><span>(&#39;</span><span style="color:#a3be8c;">dap</span><span>&#39;).</span><span style="color:#bf616a;">continue</span><span>() </span><span style="color:#b48ead;">end</span><span>)
+</span><span style="color:#bf616a;">vim</span><span>.keymap.</span><span style="color:#bf616a;">set</span><span>(&#39;</span><span style="color:#a3be8c;">n</span><span>&#39;, &#39;</span><span style="color:#a3be8c;">&lt;F10&gt;</span><span>&#39;, </span><span style="color:#b48ead;">function</span><span>() </span><span style="color:#96b5b4;">require</span><span>(&#39;</span><span style="color:#a3be8c;">dap</span><span>&#39;).</span><span style="color:#bf616a;">step_over</span><span>() </span><span style="color:#b48ead;">end</span><span>)
+</span><span style="color:#bf616a;">vim</span><span>.keymap.</span><span style="color:#bf616a;">set</span><span>(&#39;</span><span style="color:#a3be8c;">n</span><span>&#39;, &#39;</span><span style="color:#a3be8c;">&lt;F11&gt;</span><span>&#39;, </span><span style="color:#b48ead;">function</span><span>() </span><span style="color:#96b5b4;">require</span><span>(&#39;</span><span style="color:#a3be8c;">dap</span><span>&#39;).</span><span style="color:#bf616a;">step_into</span><span>() </span><span style="color:#b48ead;">end</span><span>)
+</span><span style="color:#bf616a;">vim</span><span>.keymap.</span><span style="color:#bf616a;">set</span><span>(&#39;</span><span style="color:#a3be8c;">n</span><span>&#39;, &#39;</span><span style="color:#a3be8c;">&lt;F12&gt;</span><span>&#39;, </span><span style="color:#b48ead;">function</span><span>() </span><span style="color:#96b5b4;">require</span><span>(&#39;</span><span style="color:#a3be8c;">dap</span><span>&#39;).</span><span style="color:#bf616a;">step_out</span><span>() </span><span style="color:#b48ead;">end</span><span>)
+</span><span style="color:#bf616a;">vim</span><span>.keymap.</span><span style="color:#bf616a;">set</span><span>(&#39;</span><span style="color:#a3be8c;">n</span><span>&#39;, &#39;</span><span style="color:#a3be8c;">&lt;Leader&gt;b</span><span>&#39;, </span><span style="color:#b48ead;">function</span><span>() </span><span style="color:#96b5b4;">require</span><span>(&#39;</span><span style="color:#a3be8c;">dap</span><span>&#39;).</span><span style="color:#bf616a;">toggle_breakpoint</span><span>() </span><span style="color:#b48ead;">end</span><span>)
+</span><span>
+</span><span style="color:#b48ead;">local </span><span style="color:#bf616a;">dapui </span><span>= </span><span style="color:#96b5b4;">require</span><span>(&#39;</span><span style="color:#a3be8c;">dapui</span><span>&#39;)
+</span><span style="color:#bf616a;">dapui</span><span>.</span><span style="color:#bf616a;">setup</span><span>()
+</span><span>
+</span><span style="color:#bf616a;">dap</span><span>.listeners.before.attach.</span><span style="color:#8fa1b3;">dapui_config </span><span>= </span><span style="color:#b48ead;">function</span><span>()
+</span><span>    </span><span style="color:#bf616a;">dapui</span><span>.</span><span style="color:#bf616a;">open</span><span>()
+</span><span style="color:#b48ead;">end
+</span><span style="color:#bf616a;">dap</span><span>.listeners.before.launch.</span><span style="color:#8fa1b3;">dapui_config </span><span>= </span><span style="color:#b48ead;">function</span><span>()
+</span><span>    </span><span style="color:#bf616a;">dapui</span><span>.</span><span style="color:#bf616a;">open</span><span>()
+</span><span style="color:#b48ead;">end
+</span><span style="color:#bf616a;">dap</span><span>.listeners.before.event_terminated.</span><span style="color:#8fa1b3;">dapui_config </span><span>= </span><span style="color:#b48ead;">function</span><span>()
+</span><span>    </span><span style="color:#65737e;">--dapui.close()
+</span><span style="color:#b48ead;">end
+</span><span style="color:#bf616a;">dap</span><span>.listeners.before.event_exited.</span><span style="color:#8fa1b3;">dapui_config </span><span>= </span><span style="color:#b48ead;">function</span><span>()
+</span><span>    </span><span style="color:#65737e;">--dapui.close()
+</span><span style="color:#b48ead;">end
+</span><span>
+</span><span style="color:#bf616a;">vim</span><span>.keymap.</span><span style="color:#bf616a;">set</span><span>(&#39;</span><span style="color:#a3be8c;">n</span><span>&#39;, &#39;</span><span style="color:#a3be8c;">&lt;Leader&gt;du</span><span>&#39;, </span><span style="color:#b48ead;">function</span><span>() </span><span style="color:#bf616a;">dapui</span><span>.</span><span style="color:#bf616a;">toggle</span><span>() </span><span style="color:#b48ead;">end</span><span>)
+</span><span>
+</span></code></pre>
+<p>I hope this helps you get started working with Java in Neovim!</p>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;ptr_to_joel title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>
