@@ -7,6 +7,9 @@
         <loc>https://ptrtojoel.dev/page/1/</loc>
     </url>
     <url>
+        <loc>https://ptrtojoel.dev/page/2/</loc>
+    </url>
+    <url>
         <loc>https://ptrtojoel.dev/posts/</loc>
     </url>
     <url>
@@ -16,6 +19,10 @@
     <url>
         <loc>https://ptrtojoel.dev/posts/so-you-want-to-write-java-in-neovim/</loc>
         <lastmod>2024-12-28</lastmod>
+    </url>
+    <url>
+        <loc>https://ptrtojoel.dev/posts/tail-call-recursion-in-java/</loc>
+        <lastmod>2925-01-11</lastmod>
     </url>
     <url>
         <loc>https://ptrtojoel.dev/posts/virtual-threads/</loc>

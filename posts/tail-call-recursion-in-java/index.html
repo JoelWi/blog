@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             Tail Call Recursion in Java
+            
+        </title>
+
+        
+            <meta property="og:title" content="Tail Call Recursion in Java" />
+        
+    
+
+    
+        
+            <meta property="og:description" content="A couple months ago I read a book called Functional Programming in Java by Venkat Subramaniam as I looked for inspiration for more complex uses of streams..." />
+        
+    
+
+    
+        
+            <meta name="description" content="A couple months ago I read a book called Functional Programming in Java by Venkat Subramaniam as I looked for inspiration for more complex uses of streams..." />
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=XXXX-XXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'XXXX-XXXXX');
+        </script>
+    
+
+    
+    
+        <script src=https://ptrtojoel.dev/js/feather.min.js></script>
+    
+
+
+    
+        <link href=https://ptrtojoel.dev/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://ptrtojoel.dev/css/main.css />
+
+    
+
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=https:&#x2F;&#x2F;ptrtojoel.dev></a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>Home</a>
+        
+            <a href=&#x2F;posts>Posts</a>
+        
+            <a href=&#x2F;tags>Tags</a>
+        
+
+        
+
+        
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">Tail Call Recursion in Java</h1>
+            <div class="meta">
+                
+                on  2925-01-11
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <p>A couple months ago I read a book called <a href="https://pragprog.com/titles/vsjava2e/functional-programming-in-java-second-edition/">Functional Programming in Java by Venkat Subramaniam</a> as I looked for inspiration for more complex uses of streams. One chapter stuck out to me regarding tail call recursion. Handrolled bytecode can achieve TCO since javac doesn't support it (yet), so I was interested in what was going to be shown off.</p>
+<p>TCO with handrolled factorial (<a href="https://en.wikipedia.org/wiki/List_of_Java_bytecode_instructions">bytecode reference</a>):</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span> 0: lload_0
+</span><span> 1: lconst_0
+</span><span> 2: lcmp
+</span><span> 3: ifne 8
+</span><span> 6: lload_2
+</span><span> 7: lreturn
+</span><span> 8: lload_0
+</span><span> 9: lconst_1
+</span><span> 10: lsub
+</span><span> 11: lload_0
+</span><span> 12: lload_2
+</span><span> 13: lmul
+</span><span> 14: lstore_2
+</span><span> 15: lstore_0
+</span><span> 16: goto
+</span></code></pre>
+<p>Like mentioned, TCO isn't achievable with javac, but there are other methods to achieve similar outcomes (with some overhead cost incurred). I am talking about trampolining.</p>
+<p><img src="https://ptrtojoel.dev/posts/tail-call-recursion-in-java/recursion.png" alt="alt text" /></p>
+<p>The key idea is that the recursive calls are turned into an iteration of TailCall<T> objects, and since streams are lazy, it fits very well!</p>
+<p>I've seen recursion used a lot in production where it's possible that the worst outcome happens, so this is a handy way of wrapping them up without major modification.</p>
+<p>In my personal projects I've used it a lot where I'm trying to apply more 'functional' work to see how I feel about it, and I've thoroughly enjoyed it, perhaps more than writing imperative iterations, so I recommend you give it a go and see what you think!</p>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;ptr_to_joel title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>
