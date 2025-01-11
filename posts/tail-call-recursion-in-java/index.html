@@ -110,7 +110,7 @@
         
 
         <section class="body">
-            <p>A couple months ago I read a book called <a href="https://pragprog.com/titles/vsjava2e/functional-programming-in-java-second-edition/">Functional Programming in Java by Venkat Subramaniam</a> as I looked for inspiration for more complex uses of streams. One chapter stuck out to me regarding tail call recursion. Handrolled bytecode can achieve TCO since javac doesn't support it (yet), so I was interested in what was going to be shown off.</p>
+            <p>Last year I read a book called <a href="https://pragprog.com/titles/vsjava2e/functional-programming-in-java-second-edition/">Functional Programming in Java by Venkat Subramaniam</a> as I looked for inspiration for more complex uses of streams. One chapter stood out to me: tail call recursion. Handrolled bytecode can achieve TCO since javac doesn't support it (yet), so I was interested in what was going to be shown off.</p>
 <p>TCO with handrolled factorial (<a href="https://en.wikipedia.org/wiki/List_of_Java_bytecode_instructions">bytecode reference</a>):</p>
 <pre style="background-color:#2b303b;color:#c0c5ce;"><code><span> 0: lload_0
 </span><span> 1: lconst_0
@@ -128,11 +128,11 @@
 </span><span> 15: lstore_0
 </span><span> 16: goto
 </span></code></pre>
-<p>Like mentioned, TCO isn't achievable with javac, but there are other methods to achieve similar outcomes (with some overhead cost incurred). I am talking about trampolining.</p>
+<p>As mentioned, TCO isn't achievable with javac, but there are other methods to achieve similar outcomes (albeit with some overhead cost). I am referring to trampolining.</p>
 <p><img src="https://ptrtojoel.dev/posts/tail-call-recursion-in-java/recursion.png" alt="alt text" /></p>
-<p>The key idea is that the recursive calls are turned into an iteration of TailCall<T> objects, and since streams are lazy, it fits very well!</p>
-<p>I've seen recursion used a lot in production where it's possible that the worst outcome happens, so this is a handy way of wrapping them up without major modification.</p>
-<p>In my personal projects I've used it a lot where I'm trying to apply more 'functional' work to see how I feel about it, and I've thoroughly enjoyed it, perhaps more than writing imperative iterations, so I recommend you give it a go and see what you think!</p>
+<p>The key idea is that the recursive calls are turned into an iteration of TailCall&lt;T&gt; objects, and since streams are lazy, it fits very well!</p>
+<p>I've seen recursion used frequently in production, where the worst outcome is possible, so this is a handy way of wrapping it up without major modification.</p>
+<p>In my personal projects I've used it a lot when I'm trying to apply more 'functional' work to see how I feel about it (in Java), and I've thoroughly enjoyed it, perhaps more than writing imperative iterations, so I recommend you give it a go and seeing what you think!</p>
 
         </section>
 
