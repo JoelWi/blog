@@ -10,6 +10,9 @@
         <loc>https://ptrtojoel.dev/page/2/</loc>
     </url>
     <url>
+        <loc>https://ptrtojoel.dev/page/3/</loc>
+    </url>
+    <url>
         <loc>https://ptrtojoel.dev/posts/</loc>
     </url>
     <url>
@@ -27,6 +30,10 @@
     <url>
         <loc>https://ptrtojoel.dev/posts/tail-call-recursion-in-java/</loc>
         <lastmod>2025-01-11</lastmod>
+    </url>
+    <url>
+        <loc>https://ptrtojoel.dev/posts/tech-lead-tonight-tech-lead-tonight-king/</loc>
+        <lastmod>2025-06-21</lastmod>
     </url>
     <url>
         <loc>https://ptrtojoel.dev/posts/the-shopping-trolley-theory/</loc>
