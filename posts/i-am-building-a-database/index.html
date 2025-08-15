@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             I Am Building a Database
+            
+        </title>
+
+        
+            <meta property="og:title" content="I Am Building a Database" />
+        
+    
+
+    
+        
+            <meta property="og:description" content="A few months ago I was pondering on what sort of &#x27;lifelong&#x27; project I wanted to do, and I thought &#x27;well why not something that I would never get a chance to work on&#x27; which lead me to a simple answer: a database..." />
+        
+    
+
+    
+        
+            <meta name="description" content="A few months ago I was pondering on what sort of &#x27;lifelong&#x27; project I wanted to do, and I thought &#x27;well why not something that I would never get a chance to work on&#x27; which lead me to a simple answer: a database..." />
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=XXXX-XXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'XXXX-XXXXX');
+        </script>
+    
+
+    
+    
+        <script src=https://ptrtojoel.dev/js/feather.min.js></script>
+    
+
+
+    
+        <link href=https://ptrtojoel.dev/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://ptrtojoel.dev/css/main.css />
+
+    
+
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=https:&#x2F;&#x2F;ptrtojoel.dev></a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>Home</a>
+        
+            <a href=&#x2F;posts>Posts</a>
+        
+            <a href=&#x2F;tags>Tags</a>
+        
+
+        
+
+        
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">I Am Building a Database</h1>
+            <div class="meta">
+                
+                on  2025-08-15
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <p><img src="https://ptrtojoel.dev/posts/i-am-building-a-database/db.png" alt="" /></p>
+<p>A few months ago I was pondering on what sort of 'lifelong' project I wanted to do, and I thought 'well why not something that I would never get a chance to work on' which lead me to a simple answer: a database.</p>
+<p>But databases are not simple pieces of software (as we know them) even though you could have a file and search inside it, there's a lot of pieces in play. I don't have much time either to work on it, but when I do, I figured this would really push my own engineering growth because of it being an anomoly.</p>
+<p>I warmed up with implementing a subset of the redis specification, just enough to wonder if this is what I wanted to do. Once I had enough, I started writing my b+tree implementation "ok here's my structure and oh wait I need to persist this to disk oh it's so over" yeah having a data structure based around disk changes how you think a lot compared to in-memory.</p>
+<p>So far I have only worked on the b+tree implementation and it's been a lot of fun, I didn't read anything (pseudocode, actual code, behaviour etc) and rawdogged it by using this cool site: <a href="https://bplustree.app">BPlusTree App</a></p>
+<p><img src="https://ptrtojoel.dev/posts/i-am-building-a-database/bplustree95.png" alt="bplustree with 95 nodes" /></p>
+<p>By looking at the behaviour, I would figure out the edge cases:</p>
+<p><img src="https://ptrtojoel.dev/posts/i-am-building-a-database/bplustreesplit.png" alt="bplustree splitting adding 23rd key" /></p>
+<p>So going blind has been really fun, and that will apply to other features as well. I don't have any concrete plans of what I want this to be, I think it will emerge overtime. However, I'm thinking of it being embedded/abstraction around a single file kinda like sqlite. Since it'll take time to slowly build parts, I figure there's no point trying to live up to a specific design right now (sumtypes tonight? sumtypes tonight king??).</p>
+<p>I've got a few books lined up to read during times away from my laptop, similarly I think I'll dive into other projects (sqlite, postgres, cassandra etc) and see what's up.</p>
+<p>I'm writing this in Java (always the latest JDK + preview features) + compiling with GraalVM vs e.g. Rust, mainly because there's a lot of apis I don't touch often and I think it'll be good to keep myself sharp with them. It'll be open on github as well once it's in an mvp state.</p>
+<p>The overall structure of the code is based on one idea: fun. I will write the code however I want to because yeah I wanna do recursion miss me with your bullshit.</p>
+<p><img src="https://ptrtojoel.dev/posts/i-am-building-a-database/tailcall.png" alt="Tail call recursion in java" /></p>
+<p><a href="https://ptrtojoel.dev/posts/tail-call-recursion-in-java/">Here's my blog on tail call recursion in Java</a></p>
+<p>I'll do blog updates when I think I've made enough interesting progress to share. Might be slow however because there's a lot of reading around databases I need to consume.</p>
+<p>The working name is 'ButterflyDB' because butterfly is my favourite guard in jiujitsu.</p>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;ptr_to_joel title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>
